@@ -1,0 +1,41 @@
+/* Admin Dashboard Icon Styling */
+
+/* Base styling for admin dashboard icon */
+.admin-dashboard {
+    margin: 0 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+}
+
+/* Enhanced hover effects */
+.admin-dashboard:hover {
+    color: #4a6cf7;
+    transform: translateY(-3px);
+    filter: drop-shadow(0 4px 6px rgba(74, 108, 247, 0.2));
+}
+
+/* Icon styling */
+.admin-dashboard i {
+    font-size: 20px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(74, 108, 247, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Icon hover effect */
+.admin-dashboard:hover i {
+    background-color: #4a6cf7;
+    color: white;
+    transform: scale(1.05);
+}

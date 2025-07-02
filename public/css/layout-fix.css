@@ -1,0 +1,1576 @@
+/* Layout fixes for padding issues - White Theme */
+
+/* Global theme settings */
+body {
+    background-color: #ffffff;
+    color: #333;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* Improve text readability on mobile */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        line-height: 1.3;
+    }
+    
+    /* Pastikan header terlihat baik pada mobile */
+    header {
+        -webkit-transform: translateZ(0); /* Meningkatkan performa rendering di mobile */
+        transform: translateZ(0);
+    }
+}
+
+.light-theme {
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Main container padding adjustments */
+.container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header and navbar adjustments */
+.navbar {
+    padding: 2px 10px;
+    background-color: transparent;
+    height: 80px; /* Mengatur tinggi navbar menjadi 80px */
+    transition: all 0.3s ease;
+    -webkit-backface-visibility: hidden; /* Mencegah flickering saat scroll di iOS */
+    backface-visibility: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Pastikan konten utama tidak tertutup oleh navbar */
+main, .container-fluid {
+    padding-top: 85px; /* Menyesuaikan padding untuk header yang lebih tinggi (80px + 5px) */
+    transition: padding-top 0.3s ease;
+}
+
+/* Header styling */
+header {
+    background-color: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 2px 0;
+    position: fixed; /* Mengubah menjadi fixed untuk memastikan header tetap terlihat saat scroll */
+    z-index: 1070; /* Meningkatkan z-index agar di atas sidebar dan konten lain */
+    width: 100%;
+    transition: all 0.3s ease;
+    height: 80px; /* Mengatur tinggi header menjadi 80px */
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Pastikan konten utama memiliki z-index yang tepat */
+.nft-store-content {
+    position: relative;
+    z-index: 1040; /* Di bawah navbar, sidebar, dan overlay */
+    transition: all 0.3s ease;
+}
+
+/* Pastikan konten utama tidak tertumpuk dengan sidebar pada desktop */
+@media (min-width: 769px) {
+    .nft-store-content {
+        margin-left: 250px; /* Sesuaikan dengan lebar sidebar */
+        transition: all 0.3s ease;
+    }
+    
+    /* Penyesuaian header untuk desktop */
+    header {
+        padding: 5px 0;
+    }
+    
+    .navbar {
+        padding: 5px 15px;
+    }
+    
+    .header-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2px 15px;
+    }
+}
+
+.header-inner {
+    width: 100%;
+    padding: 0;
+    position: relative; /* Untuk positioning hamburger icon */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px; /* Mengatur tinggi header-inner menjadi 80px */
+}
+
+/* Header content layout */
+.header-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 30px;
+    margin-right: 20px;
+    max-width: 1200px;
+}
+
+.order-mobile-1 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 769px) {
+    .order-mobile-1,
+    .order-mobile-2 {
+        order: unset;
+    }
+    
+    .header-content {
+        flex-wrap: nowrap;
+    }
+}
+
+.navbar-brand {
+    color: #333;
+    max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.navbar-brand:hover {
+    color: #4a6cf7;
+    transform: translateY(-1px);
+    text-shadow: 0 1px 2px rgba(74, 108, 247, 0.2);
+}
+
+.navbar-brand img {
+    margin-right: 12px;
+    max-height: 42px;
+    width: auto;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.navbar-brand:hover img {
+    transform: rotate(5deg);
+}
+
+/* Search bar styling */
+.search-icon {
+    position: relative;
+    margin-right: 15px;
+    min-width: 250px;
+}
+
+.search-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4a6cf7;
+    font-size: 16px;
+    pointer-events: none; /* Ensures clicks pass through to the input */
+    transition: all 0.3s ease;
+}
+
+.search-icon input {
+    padding: 10px 20px 10px 45px;
+    border-radius: 30px;
+    background-color: #f5f7ff;
+    border: 2px solid transparent;
+    color: #333;
+    font-size: 14px;
+    width: 100%;
+    transition: all 0.3s ease;
+    -webkit-appearance: none; /* Removes default styling on iOS */
+    appearance: none;
+    box-shadow: 0 2px 10px rgba(74, 108, 247, 0.05);
+}
+
+.search-icon input:focus {
+    outline: none;
+    background-color: #fff;
+    border-color: #4a6cf7;
+    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.1);
+}
+
+.search-icon input:focus + i {
+    color: #4a6cf7;
+}
+
+.search-icon input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: 400;
+}
+
+@media (max-width: 992px) {
+    .search-icon {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-icon {
+        width: 100%;
+        min-width: unset;
+    }
+    
+    .search-icon input {
+        width: 100%;
+        padding: 10px 15px 10px 40px;
+    }
+}
+
+/* Profile and notification links */
+.profile, .notification, .chat {
+    margin: 0 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.profile:hover, .notification:hover, .chat:hover {
+    color: #4a6cf7;
+    transform: translateY(-2px);
+}
+
+.notification i, .chat i {
+    font-size: 20px;
+    position: relative;
+}
+
+/* Notification badge */
+.notification i:after, .chat i:after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -5px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff5e5e;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: block;
+}
+
+@media (max-width: 576px) {
+    .profile, .notification, .chat {
+        margin: 0 8px;
+    }
+    
+    .header-content {
+        flex: 1;
+        justify-content: flex-end;
+    }
+}
+
+.profile img {
+    margin-right: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #f0f0f0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    object-fit: cover;
+}
+
+.user-name {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+}
+
+.profile:hover .user-name {
+    color: #4a6cf7;
+}
+
+.order-mobile-1 {
+    display: flex;
+    align-items: center;
+}
+
+.order-mobile-2 {
+    flex: 1;
+}
+
+/* Content area padding adjustments */
+.nft-store {
+    padding-top: 85px; /* Menyesuaikan padding untuk header yang lebih tinggi (80px + 5px) */
+    background-color: #ffffff;
+    min-height: 100vh;
+    color: #333;
+}
+
+.nft-store-inner {
+    padding: 20px 0;
+    display: flex;
+}
+
+.nft-store-content {
+    padding: 20px;
+    width: 100%;
+    margin-left: 250px; /* Match sidebar width */
+}
+
+/* Main content sections */
+.nft-up-content {
+    margin-bottom: 30px;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.trending h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Card and item spacing */
+.trending-content {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f8f8f8;
+    transition: transform 0.3s ease;
+    border: 1px solid #eaeaea;
+}
+
+.trending-content:hover {
+    transform: translateY(-5px);
+}
+
+.trending-desc {
+    padding: 15px;
+    color: #333;
+}
+
+.trending-desc h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.user-title {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.user-position {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.trending-desc p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Image styling */
+.trending-img {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.trending-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.trending-content:hover .trending-img img {
+    transform: scale(1.05);
+}
+
+/* Responsive image handling */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.fire-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/* Prevent image overflow on small screens */
+img, svg, video {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+/* Add loading animation for images */
+.img-fluid.loading {
+    opacity: 0.6;
+}
+
+/* Add fade-in effect for images */
+.img-fluid.loaded {
+    opacity: 1;
+}
+
+/* Ensure images don't overflow on small screens */
+img, svg, video {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+/* Ensure content doesn't overflow */
+.container-fluid {
+    overflow-x: hidden;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Make tables responsive */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Adjust table cell padding for better touch */
+    td, th {
+        padding: 10px;
+        min-height: 44px;
+    }
+}
+
+/* Fire bubble art section spacing */
+.fire-bubble-art {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f8f8f8;
+    border: 1px solid #eaeaea;
+}
+
+.fire-links {
+    margin-top: 15px;
+}
+
+.heart {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #ff5e5e;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.heart:hover {
+    background-color: #ff5e5e;
+    color: #fff;
+}
+
+.fire-content {
+    padding-left: 20px;
+}
+
+.fire-time {
+    margin: 15px 0;
+}
+
+.fire-user {
+    color: #555;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.fire-user img {
+    margin-right: 8px;
+    border-radius: 50%;
+    border: 2px solid #eaeaea;
+}
+
+.user-image {
+    border-radius: 50%;
+    border: 2px solid #eaeaea;
+}
+
+/* Auction items spacing */
+.bid {
+    padding: 10px 0;
+}
+
+.bid h5, .current-bid h4, .auction h4 {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.bid span, .current-bid span, .auction span {
+    color: #4a6cf7;
+    font-weight: 600;
+}
+
+.middle-line {
+    width: 1px;
+    height: 40px;
+    background-color: #eaeaea;
+    display: block;
+    margin: 0 15px;
+}
+
+/* Paint Art section */
+figure.paint-image {
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eaeaea;
+}
+
+/* Trending section title */
+.trending-title {
+    margin-bottom: 20px;
+}
+
+/* Sidebar menu adjustments */
+.menu-links {
+    padding-top: 70px;
+    padding-bottom: 80px; /* Untuk memberikan ruang untuk sidebar footer */
+    width: 250px;
+    background-color: #f8f9fa;
+    z-index: 1060; /* Meningkatkan z-index agar di atas overlay tapi di bawah header dan hamburger */
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    scrollbar-width: thin;
+    scrollbar-color: #ddd #fff;
+    height: 100vh; /* Pastikan tinggi sidebar penuh */
+    overflow-y: auto; /* Tambahkan scroll jika konten terlalu panjang */
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    background-image: linear-gradient(to bottom, #ffffff, #f8f9fa);
+}
+
+.menu-links::-webkit-scrollbar {
+    width: 6px;
+}
+
+.menu-links::-webkit-scrollbar-track {
+    background: #fff;
+}
+
+.menu-links::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 6px;
+    border: 2px solid #fff;
+}
+
+/* Sidebar profile styling */
+.sidebar-profile {
+    background-color: rgba(74, 108, 247, 0.05);
+    border-radius: 10px;
+    margin: 0 15px 15px;
+    padding: 15px !important;
+    border: 1px solid rgba(74, 108, 247, 0.1);
+    transition: all 0.3s ease;
+}
+
+.sidebar-profile:hover {
+    background-color: rgba(74, 108, 247, 0.08);
+    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.05);
+}
+
+.sidebar-welcome {
+    width: 100%;
+}
+
+.welcome-text {
+    color: #6c757d;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.sidebar-welcome .user-name {
+    color: #495057;
+    font-weight: 600;
+    font-size: 16px;
+    max-width: 100%;
+}
+
+/* Menu overlay for mobile */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1050; /* Di bawah sidebar dan header tapi di atas konten lain */
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.menu-overlay.active {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-menu {
+    padding: 0 15px;
+}
+
+.menu-category {
+    margin-bottom: 25px;
+}
+
+.menu-title {
+    color: #adb5bd;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 10px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.menu-links ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.menu-links ul li {
+    padding: 0;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.menu-links ul li a {
+    padding: 12px 16px;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-links ul li a:hover {
+    background-color: rgba(74, 108, 247, 0.08);
+    color: #4a6cf7;
+    transform: translateX(5px);
+    box-shadow: 0 4px 10px rgba(74, 108, 247, 0.05);
+}
+
+.menu-links ul li a i {
+    margin-right: 12px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #6c757d;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+.menu-links ul li a:hover i {
+    color: #4a6cf7;
+    transform: scale(1.1);
+}
+
+.menu-links ul li.active {
+    background-color: rgba(74, 108, 247, 0.08);
+}
+
+.menu-links ul li.active a {
+    color: #4a6cf7;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(74, 108, 247, 0.1);
+}
+
+.menu-links ul li.active a i {
+    color: #ffffff;
+    background-color: #4a6cf7;
+    box-shadow: 0 4px 8px rgba(74, 108, 247, 0.25);
+}
+
+/* Sidebar footer styling */
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #f8f9fa;
+}
+
+.sidebar-footer-content {
+    display: flex;
+    justify-content: center;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.logout-btn i {
+    margin-right: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.logout-btn:hover i {
+    transform: translateX(-3px);
+}
+
+/* Button styling for white theme */
+.theme-btn {
+    background-color: #4a6cf7;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.theme-btn:hover, .theme-btn:focus {
+    background-color: #3a5bd9;
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+    .hamburger-icon {
+        display: block; /* Show hamburger icon on mobile */
+        margin-left: 10px;
+    }
+    
+    .theme-btn, .btn-logout, .profile, .notification, .menu-links ul li a {
+        padding: 12px 18px;
+        min-height: 50px; /* Increased touch target size for taller header */
+        display: flex;
+        align-items: center;
+    }
+    
+    .heart {
+        width: 44px;
+        height: 44px;
+    }
+    
+    /* Improve form elements for touch */
+input, select, textarea, button {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+    min-height: 44px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-appearance: none; /* Removes default styling on iOS */
+    appearance: none;
+    background-color: #fff;
+    max-width: 100%; /* Mencegah input melebihi container */
+}
+
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+    border-color: #4a6cf7;
+    box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.2);
+}
+
+/* Profile page styling */
+.card {
+    border-radius: 10px;
+    border: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.form-label {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.btn-primary {
+    background-color: #4a6cf7;
+    border-color: #4a6cf7;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(74, 108, 247, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #3a5ce5;
+    border-color: #3a5ce5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(74, 108, 247, 0.3);
+}
+
+.btn-outline-secondary {
+    color: #555;
+    border-color: #ddd;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f5f5f5;
+    color: #333;
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+    
+    /* Add active state for touch feedback */
+    .theme-btn:active, .btn-logout:active, .profile:active, .notification:active, .menu-links ul li a:active {
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+    
+    /* Improve scrolling */
+    .nft-store-content {
+        -webkit-overflow-scrolling: touch;
+        padding-top: 85px; /* Menyesuaikan padding untuk header yang lebih tinggi (80px + 5px) */
+    }
+    
+    /* Fix double-tap issue on iOS */
+    a, button, .theme-btn, .btn-logout, .profile, .notification {
+        touch-action: manipulation;
+    }
+}
+
+/* Hamburger menu styling */
+.hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+    margin-left: 20px;
+    padding: 4px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    background-color: rgba(74, 108, 247, 0.05);
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu:hover span {
+    background-color: #4a6cf7;
+}
+
+/* Hamburger icon styling */
+.hamburger-icon {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+    z-index: 1100; /* Meningkatkan z-index agar selalu di atas header dan navbar */
+    display: none; /* Hide by default on larger screens */
+    outline: none !important;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    touch-action: manipulation; /* Meningkatkan responsivitas sentuhan */
+}
+
+.hamburger-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.hamburger-icon:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.hamburger-icon.ham-style {
+    background-color: rgba(74, 108, 247, 0.1);
+}
+
+.hamburger-icon span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    margin: 6px 0;
+    background-color: #333;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Hamburger menu active state */
+.hamburger-menu.ham-style {
+    background-color: rgba(74, 108, 247, 0.1);
+}
+
+.hamburger-menu.ham-style span {
+    background-color: #4a6cf7;
+}
+
+.hamburger-menu.ham-style span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.ham-style span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.hamburger-menu.ham-style span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.hamburger-icon.ham-style span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-icon.ham-style span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-icon.ham-style span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Show hamburger on mobile */
+@media (max-width: 768px) {
+    .hamburger-icon {
+        z-index: 1100; /* Meningkatkan z-index agar selalu di atas header dan navbar */
+        right: 15px;
+        display: block !important; /* Memastikan selalu terlihat di mobile */
+        background-color: transparent;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+/* Main layout container */
+.main-layout {
+    display: flex;
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
+    position: relative;
+}
+
+.content-wrapper {
+    flex: 1;
+    min-height: calc(100vh - 80px);
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .nft-store-content {
+        margin-left: 220px; /* Slightly reduced sidebar width */
+    }
+    
+    .menu-links {
+        width: 220px;
+    }
+}
+
+@media (max-width: 992px) {
+    .nft-store-content {
+        margin-left: 200px;
+    }
+    
+    .menu-links {
+        width: 200px;
+    }
+    
+    .fire-bubble-art {
+        flex-direction: column;
+    }
+    
+    .fire-content {
+        padding-left: 0;
+        padding-top: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nft-store-content {
+        margin-left: 0;
+        padding: 15px;
+        padding-top: 85px; /* Menyesuaikan padding untuk header yang lebih tinggi (80px + 5px) */
+    }
+    
+    /* Penyesuaian header untuk tablet */
+    header {
+        padding: 0;
+        height: 80px;
+    }
+    
+    .navbar {
+        padding: 2px 8px;
+        height: 80px;
+    }
+    
+    .menu-links {
+        width: 250px;
+        left: -280px; /* Sedikit lebih jauh untuk memastikan benar-benar tersembunyi */
+        position: fixed;
+        height: 100%;
+        transition: all 0.3s ease;
+        box-shadow: none;
+        top: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1060; /* Meningkatkan z-index agar di atas overlay tapi di bawah header dan hamburger */
+        padding-top: 85px; /* Menyesuaikan padding untuk header yang lebih tinggi (80px + 5px) */
+        background-color: #ffffff; /* Memastikan background warna putih */
+    }
+    
+    .menu-links.left {
+        left: 0;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        visibility: visible;
+    }
+    
+    /* Pastikan konten menu tidak tertutup oleh header */
+    .menu-links ul {
+        padding-top: 15px; /* Menyesuaikan padding untuk menu */
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+    }
+    
+    .menu-links li {
+        margin-bottom: 10px;
+    }
+    
+    .menu-links li a {
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        color: #333;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .menu-links li a i {
+        margin-right: 12px;
+        font-size: 18px;
+        width: 20px;
+        text-align: center;
+    }
+    
+    .menu-links li a:hover, .menu-links li.active a {
+        background-color: rgba(74, 108, 247, 0.1);
+        color: #4a6cf7;
+    }
+    
+    /* Tambahkan margin pada konten utama untuk menghindari tumpang tindih dengan sidebar */
+    body.menu-open .nft-store-content {
+        margin-left: 0; /* Pada mobile, sidebar akan overlay di atas konten */
+    }
+    
+    /* Mencegah scrolling pada body saat menu dibuka */
+    body.menu-open {
+        overflow: hidden;
+    }
+    
+    /* Pastikan header tetap terlihat saat menu dibuka */
+    body.menu-open header,
+    body.menu-open .navbar {
+        z-index: 1070; /* Sama dengan header normal */
+    }
+    
+    /* Pastikan sidebar memiliki background dan bayangan yang tepat */
+    .menu-links.left {
+        background-color: #ffffff;
+    }
+    
+    .fire-bubble-art {
+        flex-direction: column;
+    }
+    
+    .fire-content {
+        padding-left: 0;
+        padding-top: 15px;
+    }
+    
+    .nft-store {
+        padding-top: 85px; /* Menyesuaikan padding untuk header yang lebih tinggi (80px + 5px) */
+    }
+    
+    .col-md-4, .col-md-8 {
+        margin-bottom: 20px;
+    }
+    
+    .header-content {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        width: 100%;
+    }
+    
+    .search-icon {
+        order: 3;
+        width: 100%;
+        margin-top: 10px;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    
+    .search-icon input {
+        width: 100%;
+    }
+    
+    .trending-img {
+        height: auto;
+    }
+    
+    .trending-content {
+        margin-bottom: 15px;
+    }
+    
+    .trending-desc {
+        padding: 10px;
+    }
+    
+    .nft-store-inner {
+        flex-direction: column;
+    }
+    
+    .row {
+        margin-right: -10px;
+        margin-left: -10px;
+    }
+    
+    .col-md-4, .col-md-8 {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 2px 5px;
+        height: 80px;
+    }
+    
+    .header-inner {
+        flex-wrap: wrap;
+        padding: 0 2px;
+        width: 100%;
+        height: 80px;
+    }
+    
+    main, .container-fluid {
+        padding-top: 85px; /* Menyesuaikan padding pada layar kecil untuk header 80px */
+    }
+    
+    /* Pastikan header tidak tertumpuk dengan sidebar */
+    header {
+        position: fixed; /* Mengubah menjadi fixed untuk memastikan header tetap terlihat saat scroll */
+        z-index: 1070; /* Meningkatkan z-index agar di atas sidebar dan di bawah hamburger */
+        padding: 0;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-color: #fff;
+        height: 30px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Pastikan navbar tetap di atas semua konten */
+    .navbar {
+        z-index: 1060; /* Sedikit lebih rendah dari header */
+        height: auto;
+        width: 100%;
+        padding: 3px 8px;
+    }
+    
+    .navbar-brand {
+        font-size: 14px;
+        max-width: 45%;
+        padding-right: 8px;
+    }
+    
+    .navbar-brand img {
+        margin-right: 8px;
+        width: 40px;
+        height: auto;
+    }
+    
+    .profile, .notification {
+        margin: 0 3px;
+    }
+    
+    .user-name {
+        display: none;
+    }
+    
+    .profile img {
+        margin-right: 0;
+    }
+    
+    .btn-logout {
+        margin-left: 6px;
+        padding: 8px 12px;
+        font-size: 15px;
+    }
+    
+    .logout-text {
+        display: none;
+    }
+    
+    .trending-title h2 {
+        font-size: 20px;
+    }
+    
+    .fire-time {
+        flex-direction: column;
+    }
+    
+    .middle-line {
+        display: none;
+    }
+    
+    .current-bid, .auction {
+        margin-bottom: 10px;
+    }
+    
+    .hamburger-icon {
+        margin-left: 10px;
+        z-index: 1100; /* Meningkatkan z-index agar selalu di atas header dan navbar */
+        display: block !important; /* Memastikan selalu terlihat di mobile */
+        background-color: transparent;
+    }
+    
+    .header-content {
+        margin-top: 2px;
+        padding: 3px;
+        width: 100%;
+    }
+    
+    .order-mobile-1 {
+        order: 1;
+    }
+    
+    .order-mobile-2 {
+        order: 2;
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    .fire-image {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .fire-bubble-art h2 {
+        font-size: 20px;
+    }
+    
+    .fire-user {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .user-img {
+        margin-bottom: 5px;
+    }
+    
+    .menu-links {
+        width: 230px;
+        left: -280px; /* Sedikit lebih jauh untuk memastikan benar-benar tersembunyi */
+        z-index: 1060; /* Meningkatkan z-index agar di atas overlay tapi di bawah header dan hamburger */
+        background-color: #ffffff; /* Memastikan background warna putih */
+        transition: all 0.3s ease;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 400px) {
+    .navbar-brand {
+        font-size: 12px;
+        max-width: 40%;
+        line-height: 1.2;
+    }
+    
+    .navbar-brand img {
+        width: 18px;
+        height: auto;
+        margin-right: 3px;
+    }
+    
+    .header-inner {
+        padding: 0;
+    }
+    
+    .trending-desc h3 {
+        font-size: 16px;
+    }
+    
+    .fire-bubble-art h3 {
+        font-size: 18px;
+    }
+    
+    .trending-title h2 {
+        font-size: 18px;
+    }
+    
+    .theme-btn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+    
+    .bid {
+        flex-direction: column;
+    }
+    
+    .bid div {
+        margin-bottom: 5px;
+    }
+    
+    .fire-content {
+        padding: 10px 0;
+    }
+    
+    .fire-time {
+        margin: 10px 0;
+    }
+    
+    .fire-user {
+        margin-bottom: 10px;
+    }
+    
+    .fire-links {
+        flex-wrap: wrap;
+    }
+    
+    .fire-links a {
+        margin-bottom: 5px;
+    }
+    
+    .search-icon input {
+        font-size: 14px;
+        height: 36px;
+    }
+}
+
+/* Very small devices */
+@media (max-width: 320px) {
+    .navbar {
+        padding: 8px 5px;
+    }
+    
+    .navbar-brand {
+        font-size: 14px;
+        max-width: 35%;
+        line-height: 1.1;
+    }
+    
+    .navbar-brand img {
+        width: 18px;
+        margin-right: 4px;
+    }
+    
+    .trending-desc h3 {
+        font-size: 14px;
+    }
+    
+    .fire-bubble-art h3 {
+        font-size: 16px;
+    }
+    
+    .trending-title h2 {
+        font-size: 16px;
+    }
+    
+    .theme-btn {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+    
+    .profile, .notification {
+        margin: 0 3px;
+    }
+    
+    .btn-logout {
+        margin-left: 6px;
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+    
+    .header-content {
+        margin-top: 2px;
+    }
+}
+
+/* Very small devices */
+@media (max-width: 320px) {
+    .navbar-brand {
+        font-size: 14px;
+    }
+    
+    .navbar-brand img {
+        width: 20px;
+    }
+    
+    .trending-desc h3 {
+        font-size: 14px;
+    }
+    
+    .fire-bubble-art h3 {
+        font-size: 16px;
+    }
+    
+    .trending-title h2 {
+        font-size: 16px;
+    }
+    
+    .theme-btn {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+    
+    .profile, .notification {
+        margin: 0 3px;
+    }
+    
+    .btn-logout {
+        margin-left: 6px;
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+    
+    .header-content {
+        margin-top: 2px;
+    }
+}

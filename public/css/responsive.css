@@ -1,0 +1,357 @@
+/* Responsive CSS untuk ServiceHub */
+
+/* Base styles */
+:root {
+    --primary-color: #4a6cf7;
+    --secondary-color: #ff5e5e;
+    --text-color: #333;
+    --light-bg: #f5f5f5;
+    --header-height: 80px;
+}
+
+/* Improve base responsiveness */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent scrolling when menu is open */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Responsive typography */
+html {
+    font-size: 16px;
+}
+
+/* Responsive images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Improved touch targets */
+a, button, input, select, textarea {
+    touch-action: manipulation;
+}
+
+/* Header responsive styles */
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: var(--header-height);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+/* Icon styles with better touch targets */
+.profile, .notification, .chat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    color: var(--text-color);
+    text-decoration: none;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.chat i, .notification i {
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.chat:hover i, .notification:hover i {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* Responsive sidebar */
+.menu-links {
+    transition: all 0.3s ease;
+}
+
+/* Sidebar header for mobile */
+.sidebar-header {
+    display: none;
+    border-bottom: 1px solid #eee;
+    padding: 15px;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-logo img {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.close-sidebar {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-sidebar:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Menu overlay */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.menu-overlay.active {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hamburger menu */
+.hamburger-menu {
+    display: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1100;
+    outline: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    width: 44px;
+    height: 44px;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    margin: 6px 0;
+    background-color: #333;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+    position: relative;
+}
+
+.hamburger-menu.ham-style span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.ham-style span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.ham-style span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
+    .container-fluid {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .nft-store-content {
+        margin-left: 250px;
+    }
+}
+
+/* Desktop (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .nft-store-content {
+        margin-left: 220px;
+    }
+    
+    .menu-links {
+        width: 220px;
+    }
+}
+
+/* Tablet (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .nft-store-content {
+        margin-left: 200px;
+    }
+    
+    .menu-links {
+        width: 200px;
+    }
+    
+    html {
+        font-size: 15px;
+    }
+    
+    .navbar-brand {
+        font-size: 16px;
+    }
+}
+
+/* Mobile (576px to 767px) */
+@media (max-width: 767px) {
+    html {
+        font-size: 15px;
+    }
+    
+    .hamburger-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .nft-store-content {
+        margin-left: 0;
+        padding: 15px;
+        padding-top: calc(var(--header-height) + 5px);
+    }
+    
+    .menu-links {
+        width: 280px;
+        left: -280px;
+        position: fixed;
+        height: 100%;
+        transition: all 0.3s ease;
+        box-shadow: none;
+        top: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1060;
+        padding-top: 0;
+        background-color: #ffffff;
+    }
+    
+    .sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .menu-links.left {
+        left: 0;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .order-mobile-1 {
+        order: 2;
+        justify-content: flex-end;
+    }
+    
+    .order-mobile-2 {
+        order: 1;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .search-icon {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+/* Small Mobile (up to 575px) */
+@media (max-width: 575px) {
+    .navbar-brand {
+        font-size: 14px;
+        max-width: 45%;
+    }
+    
+    .navbar-brand img {
+        width: 30px;
+        margin-right: 5px;
+    }
+    
+    .user-name {
+        display: none;
+    }
+    
+    .logout-text {
+        display: none;
+    }
+    
+    .btn-logout {
+        padding: 8px 12px;
+        margin-left: 5px;
+    }
+    
+    .profile, .notification, .chat {
+        margin: 0 5px;
+    }
+    
+    .profile img {
+        margin-right: 0;
+    }
+}
+
+/* Extra Small Mobile (up to 375px) */
+@media (max-width: 375px) {
+    .navbar-brand {
+        font-size: 12px;
+        max-width: 40%;
+    }
+    
+    .navbar-brand img {
+        width: 25px;
+    }
+    
+    .profile, .notification, .chat {
+        margin: 0 3px;
+    }
+    
+    .hamburger-menu {
+        padding: 8px;
+    }
+    
+    .hamburger-menu span {
+        width: 24px;
+        height: 2px;
+        margin: 5px 0;
+    }
+}

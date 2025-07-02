@@ -1,0 +1,173 @@
+/* Chat Icons Styling - Professional & Premium Look */
+
+/* Base styling for header icons */
+.profile, .notification, .chat, .store {
+    margin: 0 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+}
+
+/* Enhanced hover effects */
+.profile:hover, .notification:hover, .chat:hover, .store:hover {
+    color: #4a6cf7;
+    transform: translateY(-3px);
+    filter: drop-shadow(0 4px 6px rgba(74, 108, 247, 0.2));
+}
+
+/* Icon styling */
+.notification i, .chat i, .store i {
+    font-size: 20px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(74, 108, 247, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Icon hover effect */
+.notification:hover i, .chat:hover i, .store:hover i {
+    background-color: #4a6cf7;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Notification badge with animation */
+.notification i:after, .chat i:after, .store i:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #ff5e5e;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: block;
+    animation: pulse 2s infinite;
+}
+
+/* Pulse animation for notification badge */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 94, 94, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(255, 94, 94, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 94, 94, 0);
+    }
+}
+
+/* Tooltip styling */
+.chat[title]:hover:after,
+.notification[title]:hover:after,
+.store[title]:hover:after {
+    content: attr(title);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 100;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Store icon special styling */
+.store i {
+    background-color: rgba(52, 191, 73, 0.1);
+}
+
+.store:hover i {
+    background-color: #34bf49;
+}
+
+.store i:after {
+    background-color: #34bf49;
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(52, 191, 73, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(52, 191, 73, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(52, 191, 73, 0);
+    }
+}
+
+/* Sidebar icon styling */
+.menu-category .nav-link i {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(74, 108, 247, 0.1);
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    color: #4a6cf7;
+}
+
+.menu-category .nav-link:hover i {
+    background-color: #4a6cf7;
+    color: white;
+    transform: translateX(3px);
+}
+
+/* Active state for sidebar icons */
+.menu-category .nav-item.active .nav-link i {
+    background-color: #4a6cf7;
+    color: white;
+    box-shadow: 0 4px 8px rgba(74, 108, 247, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile, .notification, .chat {
+        margin: 0 8px;
+    }
+    
+    .notification i, .chat i {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 375px) {
+    .profile, .notification, .chat {
+        margin: 0 5px;
+    }
+    
+    .notification i, .chat i {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+}
