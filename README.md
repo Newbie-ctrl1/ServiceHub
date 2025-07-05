@@ -80,19 +80,6 @@ Pastikan untuk mengatur variabel lingkungan berikut di Railway:
    - `MYSQLPASSWORD`
 
 3. **URL Aplikasi**: Atur `APP_URL` ke domain Railway yang dihasilkan
-   - Pastikan juga `ASSET_URL` diatur ke nilai yang sama dengan `APP_URL` untuk memastikan aset statis dimuat dengan benar
-
-### Aset Statis (CSS, JS, Gambar)
-
-Untuk memastikan aset statis (CSS, JS, gambar) dimuat dengan benar di Railway:
-
-1. **Symlink Storage**: Pastikan perintah `php artisan storage:link` dijalankan selama deployment (sudah dikonfigurasi di nixpacks.toml dan railway-deploy.yml)
-
-2. **Web Server**: Proyek ini menggunakan Apache (melalui heroku-php-apache2) untuk menangani aset statis dengan lebih baik. Konfigurasi ini ada di file Procfile.
-
-3. **Asset URL**: Pastikan `ASSET_URL` diatur dengan benar di variabel lingkungan Railway untuk memastikan path aset statis benar.
-
-4. **Cache Busting**: Jika aset statis masih tidak dimuat setelah deployment, coba tambahkan parameter query string ke URL aset (misalnya `style.css?v=1`) untuk mengatasi masalah cache browser.
 
 ### Troubleshooting
 
@@ -100,12 +87,5 @@ Jika Anda mengalami error "Unsupported cipher or incorrect key length", ini menu
 
 1. APP_KEY diatur sebagai nilai base64 yang valid di variabel lingkungan Railway
 2. Perintah `php artisan key:generate --force` dijalankan selama proses build (sudah dikonfigurasi di nixpacks.toml)
-
-Jika CSS atau aset statis lainnya tidak dimuat:
-
-1. Periksa apakah symlink storage telah dibuat dengan benar
-2. Pastikan path aset menggunakan helper `asset()` di blade templates
-3. Periksa apakah `ASSET_URL` diatur dengan benar di Railway
-4. Coba bersihkan cache browser Anda
 
 Jika Anda mengalami masalah lain, periksa log di Railway untuk informasi lebih lanjut.

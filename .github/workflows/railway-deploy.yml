@@ -39,9 +39,8 @@ jobs:
       run: cp .env.railway .env
       
         
-    - name: Cache Laravel config and link storage
+    - name: Cache Laravel config
       run: |
-        php artisan storage:link
         php artisan config:cache
         php artisan route:cache
         php artisan view:cache
