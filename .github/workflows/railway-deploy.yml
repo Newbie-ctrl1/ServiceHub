@@ -38,9 +38,7 @@ jobs:
     - name: Copy .env.railway to .env
       run: cp .env.railway .env
       
-    - name: Generate application key
-      run: php artisan key:generate --force
-      
+        
     - name: Cache Laravel config
       run: |
         php artisan config:cache
