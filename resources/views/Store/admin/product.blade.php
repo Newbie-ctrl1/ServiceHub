@@ -527,7 +527,7 @@
     
     // Function to load active banner from server
     function loadActiveBanner() {
-        fetch('{{ route("api.banner.active") }}', {
+        fetch('{{ secure_url(route("api.banner.active")) }}', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -724,7 +724,7 @@
         saveBtn.disabled = true;
         
         // Send data to server using fetch API
-        fetch('{{ route("admin.banner.store") }}', {
+        fetch('{{ secure_url(route("admin.banner.store")) }}', {
             method: 'POST',
             body: formData,
             // Tidak perlu menambahkan header X-CSRF-TOKEN karena token sudah ada di formData
@@ -882,7 +882,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Send delete request to server
-                fetch('{{ route("api.banner.active") }}', {
+                fetch('{{ secure_url(route("api.banner.active")) }}', {
                     method: 'GET',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -904,14 +904,14 @@
                 .then(data => {
                     if (data.success && data.banner && data.banner.id) {
                         // If there's an active banner, delete it
-                        return fetch(`{{ url('/admin/banner') }}/${data.banner.id}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
-                            }
-                        });
+                        return fetch(`{{ secure_url('/admin/banner') }}/${data.banner.id}`, {
+                             method: 'DELETE',
+                             headers: {
+                                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                 'Content-Type': 'application/json',
+                                 'Accept': 'application/json'
+                             }
+                         });
                     } else {
                         // No active banner to delete
                         Swal.fire({
@@ -986,7 +986,7 @@
     // Function to delete banner
     function deleteBanner() {
         // First, get the active banner
-        fetch('{{ route("api.banner.active") }}', {
+        fetch('{{ secure_url(route("api.banner.active")) }}', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -1006,7 +1006,7 @@
         .then(data => {
             if (data.success && data.banner && data.banner.id) {
                 // If there's an active banner, delete it
-                return fetch(`{{ url('/admin/banner') }}/${data.banner.id}`, {
+                return fetch(`{{ secure_url('/admin/banner') }}/${data.banner.id}`, {
                     method: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
