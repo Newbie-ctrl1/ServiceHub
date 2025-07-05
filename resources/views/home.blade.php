@@ -107,7 +107,7 @@
                                                     </a>
                                                 @endif
                                                 @if($banner->user_id)
-                                                    <a href="{{ route('store.user.admin', $banner->user_id) }}" class="btn btn-sm btn-primary">View Details</a>
+                                                    <a href="{{ route('Store.user.admin', $banner->user_id) }}" class="btn btn-sm btn-primary">View Details</a>
                                                 @else
                                                     <span class="btn btn-sm btn-secondary disabled">No Store Available</span>
                                                 @endif

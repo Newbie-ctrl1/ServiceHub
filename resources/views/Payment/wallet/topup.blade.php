@@ -73,7 +73,7 @@
             </div>
         </div>
         
-        <form action="{{ route('payment.topup.process') }}" method="POST">
+        <form action="{{ route('Payment.topup.process') }}" method="POST">
             @csrf
             <input type="hidden" name="amount" id="amount-input">
             <input type="hidden" name="payment_method" id="payment-method-input" value="visa">

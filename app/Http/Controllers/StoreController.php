@@ -25,7 +25,7 @@ class StoreController extends Controller
     public function currentUserStore()
     {
         // Redirect ke toko user yang sedang login
-        return redirect()->route('store.user.admin', Auth::id());
+        return redirect()->route('Store.user.admin', Auth::id());
     }
     
     public function userStore($user_id)

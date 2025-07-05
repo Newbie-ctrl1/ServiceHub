@@ -30,7 +30,7 @@ class PaymentController extends Controller
             ]);
         }
         
-        return view('payment.index', compact('wallet'));
+        return view('Payment.index', compact('wallet'));
     }
 
     public function topup()
@@ -38,7 +38,7 @@ class PaymentController extends Controller
         $user = Auth::user();
         $wallet = $user->wallet;
         
-        return view('payment.wallet.topup', compact('wallet'));
+        return view('Payment.wallet.topup', compact('wallet'));
     }
 
     public function processTopup(Request $request)
@@ -88,7 +88,7 @@ class PaymentController extends Controller
         $wallet = $user->wallet;
         $transactions = $user->transactions()->orderBy('created_at', 'desc')->take(5)->get();
         
-        return view('payment.wallet.wallet', compact('wallet', 'transactions'));
+        return view('Payment.wallet.wallet', compact('wallet', 'transactions'));
     }
 
     public function transaction()
@@ -96,7 +96,7 @@ class PaymentController extends Controller
         $user = Auth::user();
         $transactions = $user->transactions()->orderBy('created_at', 'desc')->paginate(10);
         
-        return view('payment.wallet.transaction', compact('transactions'));
+        return view('Payment.wallet.transaction', compact('transactions'));
     }
     
     /**
@@ -291,6 +291,6 @@ class PaymentController extends Controller
         // Ambil data service
         $service = $order->service;
         
-        return view('payment.wallet.order-payment', compact('wallet', 'order', 'service'));
+        return view('Payment.wallet.order-payment', compact('wallet', 'order', 'service'));
     }
 }
