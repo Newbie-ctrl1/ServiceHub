@@ -87,7 +87,7 @@ Untuk memastikan aset statis (CSS, JS, gambar) berfungsi dengan baik di Railway:
 
 1. **ASSET_URL**: Pastikan variabel `ASSET_URL` diatur ke nilai yang sama dengan `APP_URL` di Railway
 2. **Storage Link**: Perintah `php artisan storage:link` harus dijalankan selama deployment (sudah dikonfigurasi di nixpacks.toml dan railway-deploy.yml)
-3. **Web Server**: Aplikasi menggunakan Apache sebagai web server (dikonfigurasi di Procfile) untuk penanganan aset statis yang lebih baik
+3. **Web Server**: Aplikasi menggunakan Laravel development server (`php artisan serve`) yang dikonfigurasi di Procfile
 4. **File .htaccess**: File .htaccess di root proyek dan di folder public/ memastikan permintaan dirutekan dengan benar
 
 ### Troubleshooting
