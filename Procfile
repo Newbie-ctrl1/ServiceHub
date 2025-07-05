@@ -1,2 +1,2 @@
-web: php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+web: vendor/bin/heroku-php-apache2 public/
 worker: php artisan queue:work --tries=3
