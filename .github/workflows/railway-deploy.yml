@@ -35,14 +35,17 @@ jobs:
     - name: Build assets
       run: npm run build
       
-    - name: Generate application key
-      run: php artisan key:generate --force
-      
     - name: Copy .env.railway to .env
       run: cp .env.railway .env
       
-    - name: Run database migrations
-      run: php artisan migrate --force
+    - name: Generate application key
+      run: php artisan key:generate --force
+      
+    - name: Cache Laravel config
+      run: |
+        php artisan config:cache
+        php artisan route:cache
+        php artisan view:cache
       
     - name: Install Railway CLI
       run: npm i -g @railway/cli
