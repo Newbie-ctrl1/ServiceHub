@@ -81,11 +81,27 @@ Pastikan untuk mengatur variabel lingkungan berikut di Railway:
 
 3. **URL Aplikasi**: Atur `APP_URL` ke domain Railway yang dihasilkan
 
+### Aset Statis (CSS, JS, Gambar)
+
+Untuk memastikan aset statis (CSS, JS, gambar) berfungsi dengan baik di Railway:
+
+1. **ASSET_URL**: Pastikan variabel `ASSET_URL` diatur ke nilai yang sama dengan `APP_URL` di Railway
+2. **Storage Link**: Perintah `php artisan storage:link` harus dijalankan selama deployment (sudah dikonfigurasi di nixpacks.toml dan railway-deploy.yml)
+3. **Web Server**: Aplikasi menggunakan Apache sebagai web server (dikonfigurasi di Procfile) untuk penanganan aset statis yang lebih baik
+4. **File .htaccess**: File .htaccess di root proyek dan di folder public/ memastikan permintaan dirutekan dengan benar
+
 ### Troubleshooting
 
 Jika Anda mengalami error "Unsupported cipher or incorrect key length", ini menunjukkan masalah dengan APP_KEY. Pastikan:
 
 1. APP_KEY diatur sebagai nilai base64 yang valid di variabel lingkungan Railway
 2. Perintah `php artisan key:generate --force` dijalankan selama proses build (sudah dikonfigurasi di nixpacks.toml)
+
+Jika CSS atau aset statis lainnya tidak dimuat:
+
+1. Periksa apakah `ASSET_URL` diatur dengan benar di variabel lingkungan Railway
+2. Pastikan perintah `php artisan storage:link` dijalankan selama deployment
+3. Periksa log di Railway untuk informasi lebih lanjut
+4. Pastikan file CSS ada di folder public/css/ dan tidak diabaikan oleh .gitignore
 
 Jika Anda mengalami masalah lain, periksa log di Railway untuk informasi lebih lanjut.
