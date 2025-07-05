@@ -2,10 +2,10 @@
   use Illuminate\Support\Facades\Storage;
 @endphp
 <header>
-  <link rel="stylesheet" href="{{ asset('css/chat-icons.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('css/chat-icons.css') }}">
   <nav class="navbar navbar-expand-lg navbar-light">
       <div class="header-inner">
-        <a class="navbar-brand flex-shrink-0" href="/home"><img src="{{ asset('images/logo.png') }}" alt="logo-image" class="img-fluid">
+        <a class="navbar-brand flex-shrink-0" href="/home"><img src="{{ secure_asset('images/logo.png') }}" alt="logo-image" class="img-fluid">
           ServiceHub</a>
         <div class="header-content d-flex align-items-center justify-content-between">
           <form class="d-flex justify-content-start align-items-center order-mobile-2">
@@ -24,14 +24,14 @@
                 @if(Auth::user()->profile_photo)
                     <img src="data:image/jpeg;base64,{{ base64_encode(Auth::user()->profile_photo) }}" alt="{{ Auth::user()->name }}">
                 @else
-                    <img src="{{ asset('images/default-profile.png') }}" alt="{{ Auth::user()->name }}">
+                    <img src="{{ secure_asset('images/default-profile.png') }}" alt="{{ Auth::user()->name }}">
                 @endif
             </a>
             <a href="{{ route('Chat') }}" class="chat" title="Messages"><i class="fa fa-comments" aria-hidden="true"></i></a>
             <a href="{{ route('Notification') }}" class="notification" title="Notifications"><i class="fa fa-bell" aria-hidden="true"></i></a>
             @else
             <a href="{{ route('login') }}" class="profile">
-                <img src="{{ asset('images/default-profile.png') }}" alt="Guest">
+                <img src="{{ secure_asset('images/default-profile.png') }}" alt="Guest">
             </a>
             @endif
             

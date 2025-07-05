@@ -10,16 +10,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Jasa Service ServiceHub</title>
-    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ secure_asset('images/logo.png') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ secure_asset('images/logo.png') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/bootstrap.min.css') }}">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/layout-fix.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/store-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/service-status-chart.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/style1.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/layout-fix.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/store-icons.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/service-status-chart.css') }}">
     
     @yield('head')
     
@@ -66,10 +66,10 @@
         <div class="store-header">
             <div class="header-left">
                 <div class="servicehub-logo" onclick="window.location.href='{{ route("home") }}'">
-                    <img src="{{ asset('images/logo.png') }}" alt="ServiceHub Logo">
+                    <img src="{{ secure_asset('images/logo.png') }}" alt="ServiceHub Logo">
                 </div>
                 <video width="300" height="80" autoplay loop muted style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    <source src="{{ asset('videos/animasi.mp4') }}" type="video/mp4">
+                    <source src="{{ secure_asset('videos/animasi.mp4') }}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -142,8 +142,8 @@
 
 <!-- JavaScript Libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ secure_asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ secure_asset('js/main.js') }}"></script>
 
 @yield('scripts')
 

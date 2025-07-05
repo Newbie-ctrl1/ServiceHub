@@ -239,7 +239,7 @@
                                         @if($service->main_image)
                                             <img src="data:image/jpeg;base64,{{ base64_encode($service->main_image) }}" alt="{{ $service->title }}" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">
                                         @else
-                                            <img src="{{ asset('images/default-banner.png') }}" alt="Service" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                                            <img src="{{ secure_asset('images/default-banner.png') }}" alt="Service" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">
                                         @endif
                                         <div>
                                             <h6 class="mb-0">{{ $service->title }}</h6>

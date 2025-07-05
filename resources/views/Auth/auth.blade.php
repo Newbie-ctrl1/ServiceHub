@@ -6,7 +6,7 @@
     <title>Login/Signup Form</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/auth.css') }}">
 </head>
 
 <body>

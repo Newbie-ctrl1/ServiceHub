@@ -9,7 +9,7 @@
 <div class="store-content">
     <!-- Banner Section -->
     <div class="store-banner mb-4">
-        <div class="p-5 text-white text-center banner-content position-relative" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('images/default-banner.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="p-5 text-white text-center banner-content position-relative" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ secure_asset('images/default-banner.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
             <!-- Banner Control Icons -->
             <div class="banner-control-icons position-absolute" style="top: 15px; right: 15px; z-index: 10;">
                 <button type="button" class="btn btn-light btn-sm me-2" id="edit-banner-btn" title="Edit Banner">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <img id="display-banner-img" src="{{ asset('images/default-banner.png') }}" alt="Banner" class="img-fluid mb-3" style="max-height: 200px; border-radius: 8px; display: none;">
+                <img id="display-banner-img" src="{{ secure_asset('images/default-banner.png') }}" alt="Banner" class="img-fluid mb-3" style="max-height: 200px; border-radius: 8px; display: none;">
                 <h2 class="banner-title" id="display-banner-title">Layanan Service Terbaik</h2>
                 <p class="banner-text mt-3" id="display-banner-text">Temukan berbagai layanan service berkualitas dengan teknisi profesional dan berpengalaman</p>
                 <p class="banner-location mt-3"><i class="fas fa-map-marker-alt me-1"></i> {{ $service->location ?? 'Lokasi tidak tersedia' }}</p>
@@ -109,7 +109,7 @@
                         @if($service->main_image)
                             <img src="data:image/jpeg;base64,{{ base64_encode($service->main_image) }}" alt="{{ $service->title }}" class="service-img img-fluid w-100 rounded-top">
                         @else
-                            <img src="{{ asset('images/default-banner.png') }}" alt="Service Image" class="service-img img-fluid w-100 rounded-top">
+                            <img src="{{ secure_asset('images/default-banner.png') }}" alt="Service Image" class="service-img img-fluid w-100 rounded-top">
                         @endif
                         
                         @if($service->badge)

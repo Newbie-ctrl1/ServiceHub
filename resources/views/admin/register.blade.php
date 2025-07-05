@@ -23,7 +23,7 @@
                         <li>Menyesuaikan pengaturan toko</li>
                     </ul>
                     
-                    <form method="POST" action="{{ route('admin.register.submit') }}">
+                    <form method="POST" action="{{ secure_url(route('admin.register.submit', [], false)) }}">
                         @csrf
                         
                         <div class="form-group mb-4">

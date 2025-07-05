@@ -560,7 +560,7 @@ body {
             </div>
         @else
             <div class="text-white text-center banner-content position-relative" 
-                 style="padding: 40px 30px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('images/default-banner.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                 style="padding: 40px 30px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ secure_asset('images/default-banner.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <div class="d-flex align-items-center justify-content-center mb-3">
                     @if($admin->profile_photo)
                         <img src="data:image/jpeg;base64,{{ base64_encode($admin->profile_photo) }}" 
