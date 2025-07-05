@@ -1,4 +1,4 @@
-@extends('store.user.index')
+@extends('Store.user.index')
 
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
