@@ -5,6 +5,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -18,7 +19,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.2'
-        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, mysql, bcmath, curl, zip
         
     - name: Install Composer dependencies
       run: composer install --no-dev --optimize-autoloader
@@ -34,8 +35,19 @@ jobs:
     - name: Build assets
       run: npm run build
       
+    - name: Generate application key
+      run: php artisan key:generate --force
+      
+    - name: Copy .env.railway to .env
+      run: cp .env.railway .env
+      
+    - name: Run database migrations
+      run: php artisan migrate --force
+      
+    - name: Install Railway CLI
+      run: npm i -g @railway/cli
+      
     - name: Deploy to Railway
-      uses: railway-deploy/railway-deploy@v3
-      with:
-        railway_token: ${{ secrets.RAILWAY_TOKEN }}
-        service: ${{ secrets.RAILWAY_SERVICE_ID }}
+      run: railway up --detach
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
