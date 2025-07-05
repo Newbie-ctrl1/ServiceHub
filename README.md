@@ -59,3 +59,33 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Deployment ke Railway
+
+Proyek ini dikonfigurasi untuk deployment ke Railway. Berikut adalah langkah-langkah untuk memastikan deployment berjalan dengan lancar:
+
+### Variabel Lingkungan
+
+Pastikan untuk mengatur variabel lingkungan berikut di Railway:
+
+1. **APP_KEY**: Harus berupa nilai base64 yang valid. Jangan gunakan placeholder `${APP_KEY}`. 
+   - Anda dapat menghasilkan APP_KEY dengan menjalankan `php artisan key:generate --show` secara lokal
+   - Atau atur di Railway dengan nilai yang dihasilkan secara otomatis saat deployment
+
+2. **Database**: Pastikan variabel database berikut diatur dengan benar:
+   - `MYSQLHOST`
+   - `MYSQLPORT`
+   - `MYSQLDATABASE`
+   - `MYSQLUSER`
+   - `MYSQLPASSWORD`
+
+3. **URL Aplikasi**: Atur `APP_URL` ke domain Railway yang dihasilkan
+
+### Troubleshooting
+
+Jika Anda mengalami error "Unsupported cipher or incorrect key length", ini menunjukkan masalah dengan APP_KEY. Pastikan:
+
+1. APP_KEY diatur sebagai nilai base64 yang valid di variabel lingkungan Railway
+2. Perintah `php artisan key:generate --force` dijalankan selama proses build (sudah dikonfigurasi di nixpacks.toml)
+
+Jika Anda mengalami masalah lain, periksa log di Railway untuk informasi lebih lanjut.
