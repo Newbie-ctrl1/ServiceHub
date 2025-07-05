@@ -20,8 +20,8 @@
         // Chat Configuration
         window.chatConfig = {
             // Pusher configuration
-            pusherKey: '{{ env("VITE_PUSHER_APP_KEY") }}',
-            pusherCluster: '{{ env("VITE_PUSHER_APP_CLUSTER") }}',
+            pusherKey: '{{ env("PUSHER_APP_KEY") }}',
+            pusherCluster: '{{ env("PUSHER_APP_CLUSTER") }}',
             
             // User configuration
             userId: {{ auth()->id() ?? 'null' }},
