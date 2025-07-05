@@ -71,6 +71,7 @@ Route::post('/chat/mark-read/{userId}', [ChatController::class, 'markAsRead'])->
         Route::get('/services/{id}', [\App\Http\Controllers\AdminServiceController::class, 'show'])->name('admin.services.show');
         
         // Banner routes
+        Route::get('/banner', [BannerController::class, 'index'])->name('admin.banner.index');
         Route::post('/banner', [BannerController::class, 'store'])->name('admin.banner.store');
         Route::put('/banner/{id}', [BannerController::class, 'update'])->name('admin.banner.update');
         Route::delete('/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');

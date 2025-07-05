@@ -12,8 +12,31 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::all();
-        return response()->json($banners);
+        try {
+            // Hanya ambil banner milik user yang sedang login
+            $banners = Banner::where('user_id', auth()->id())->get();
+            
+            $formattedBanners = $banners->map(function($banner) {
+                return [
+                    'id' => $banner->id,
+                    'title' => $banner->title,
+                    'text' => $banner->text,
+                    'location' => $banner->location,
+                    'is_active' => $banner->is_active,
+                    'image' => base64_encode($banner->image)
+                ];
+            });
+            
+            return response()->json([
+                'success' => true,
+                'banners' => $formattedBanners
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengambil daftar banner: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
