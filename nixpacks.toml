@@ -21,6 +21,7 @@ cmds = [
     "php artisan view:cache"
 ]
 
-# Menggunakan Procfile untuk konfigurasi start
-# [start]
-# cmd = "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
+# Konfigurasi untuk web dan worker
+[processes]
+web = "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
+worker = "php artisan queue:work --tries=3"
