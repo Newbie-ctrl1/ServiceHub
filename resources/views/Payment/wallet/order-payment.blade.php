@@ -88,14 +88,14 @@
             @if($wallet->balance < $order->total_price)
             <div class="alert alert-warning">
                 <i class="fas fa-exclamation-triangle me-2"></i> Saldo Anda tidak mencukupi untuk melakukan pembayaran ini.
-                <a href="{{ route('Payment.topup') }}" class="alert-link">Top up sekarang</a>.
+                <a href="{{ route('payment.topup') }}" class="alert-link">Top up sekarang</a>.
             </div>
             @endif
         </div>
     </div>
     
     <!-- Payment Button -->
-    <form action="{{ route('Payment.order.process') }}" method="POST">
+    <form action="{{ route('payment.order.process') }}" method="POST">
         @csrf
         <input type="hidden" name="order_id" value="{{ $order->id }}">
         <button type="submit" class="btn btn-primary w-100 py-3" {{ $wallet->balance < $order->total_price ? 'disabled' : '' }}>

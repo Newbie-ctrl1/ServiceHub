@@ -31,7 +31,7 @@
                 <div class="fw-bold text-success mt-1">Rp {{ number_format($wallet->balance, 0, ',', '.') }}</div>
             </div>
             <div>
-                <a href="{{ route('Payment.topup') }}" class="btn btn-sm btn-primary">Top Up</a>
+                <a href="{{ route('payment.topup') }}" class="btn btn-sm btn-primary">Top Up</a>
             </div>
         </div>
         
@@ -62,7 +62,7 @@
         </div>
         
         <div class="text-center mt-3">
-            <a href="{{ route('Payment.transaction') }}" class="btn btn-sm btn-outline-primary">Lihat Semua Transaksi</a>
+            <a href="{{ route('payment.transaction') }}" class="btn btn-sm btn-outline-primary">Lihat Semua Transaksi</a>
         </div>
     </div>
 </div>

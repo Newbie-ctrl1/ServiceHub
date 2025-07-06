@@ -331,7 +331,7 @@
                 <div class="sidebar-subtitle">Manage your payments easily</div>
             </div>
             <div class="sidebar-menu">
-                <a href="{{ route('Payment.topup') }}" class="menu-item {{ request()->routeIs('Payment.topup') ? 'active' : '' }}">
+                <a href="{{ route('payment.topup') }}" class="menu-item {{ request()->routeIs('payment.topup') ? 'active' : '' }}">
                     <div class="menu-icon">
                         <i class="fas fa-wallet"></i>
                     </div>
@@ -340,7 +340,7 @@
                         <div class="menu-description">Add funds to your wallet</div>
                     </div>
                 </a>
-                <a href="{{ route('Payment.transaction') }}" class="menu-item {{ request()->routeIs('Payment.transaction') ? 'active' : '' }}">
+                <a href="{{ route('payment.transaction') }}" class="menu-item {{ request()->routeIs('payment.transaction') ? 'active' : '' }}">
                     <div class="menu-icon">
                         <i class="fas fa-exchange-alt"></i>
                     </div>
@@ -349,7 +349,7 @@
                         <div class="menu-description">View your transaction history</div>
                     </div>
                 </a>
-                <a href="{{ route('Payment.wallet') }}" class="menu-item {{ request()->routeIs('Payment.wallet') ? 'active' : '' }}">
+                <a href="{{ route('payment.wallet') }}" class="menu-item {{ request()->routeIs('payment.wallet') ? 'active' : '' }}">
                     <div class="menu-icon">
                         <i class="fas fa-credit-card"></i>
                     </div>
