@@ -15,7 +15,7 @@ cmds = [
     "cp .env.railway .env",  # Tambahkan baris ini
     "php artisan key:generate --force",  # Generate APP_KEY
     "php artisan storage:link",  # Buat symlink untuk aset statis
-    "php artisan config:cache",
+    "php artisan config:clear",  # Hapus cache konfigurasi untuk memastikan variabel lingkungan diambil dengan benar
     "php artisan route:cache",
     "php artisan view:cache"
 ]
