@@ -12,6 +12,20 @@
     {{-- Custom CSS --}}
     <link href="{{ asset('css/chat.css') }}" rel="stylesheet">
     
+    <style>
+        /* Pusher Connection Status Indicator */
+        #pusher-status-indicator {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+        
+        #pusher-status-indicator:hover {
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+    
     {{-- External JavaScript --}}
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     
@@ -19,9 +33,9 @@
     <script>
         // Chat Configuration
         window.chatConfig = {
-            // Pusher configuration
-            pusherKey: '{{ env("VITE_PUSHER_APP_KEY") }}',
-            pusherCluster: '{{ env("VITE_PUSHER_APP_CLUSTER") }}',
+            // Pusher configuration with validation
+            pusherKey: '{{ env("PUSHER_APP_KEY") }}',
+            pusherCluster: '{{ env("PUSHER_APP_CLUSTER") ? env("PUSHER_APP_CLUSTER") : "ap1" }}', // Default to ap1 if not set
             
             // User configuration
             userId: {{ auth()->id() ?? 'null' }},
