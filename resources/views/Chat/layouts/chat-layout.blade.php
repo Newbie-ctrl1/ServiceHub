@@ -12,34 +12,16 @@
     {{-- Custom CSS --}}
     <link href="{{ asset('css/chat.css') }}" rel="stylesheet">
     
-    <style>
-        /* Pusher Connection Status Indicator */
-        #pusher-status-indicator {
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-weight: 500;
-        }
-        
-        #pusher-status-indicator:hover {
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-            transform: translateY(-2px);
-        }
-    </style>
-    
     {{-- External JavaScript --}}
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     
-    {{-- Chat Config is now directly in this file --}}
+    {{-- Chat Configuration --}}
     <script>
-        // Inisialisasi variabel global Pusher terlebih dahulu
-        window.PUSHER_APP_KEY = '{{ config("broadcasting.connections.pusher.key") }}';
-        window.PUSHER_APP_CLUSTER = '{{ config("broadcasting.connections.pusher.options.cluster") ? config("broadcasting.connections.pusher.options.cluster") : "ap1" }}';
-        
         // Chat Configuration
         window.chatConfig = {
-            // Pusher configuration with validation
-            pusherKey: window.PUSHER_APP_KEY,
-            pusherCluster: window.PUSHER_APP_CLUSTER,
+            // Pusher configuration
+            pusherKey: '{{ env("VITE_PUSHER_APP_KEY") }}',
+            pusherCluster: '{{ env("VITE_PUSHER_APP_CLUSTER") }}',
             
             // User configuration
             userId: {{ auth()->id() ?? 'null' }},
@@ -73,20 +55,9 @@
                 noContacts: 'Tidak ada kontak tersedia untuk chat.'
             }
         };
-        
-        // Log konfigurasi Pusher untuk debugging
-        console.log('Pusher Configuration:', {
-            key: window.PUSHER_APP_KEY,
-            cluster: window.PUSHER_APP_CLUSTER
-        });
     </script>
 </head>
 <body>
-    {{-- Pusher Connection Status Indicator --}}
-    <div id="pusher-status-indicator" style="position: fixed; top: 10px; right: 10px; padding: 5px 10px; border-radius: 5px; font-size: 12px; z-index: 1000; background-color: #f8f9fa; display: none;">
-        Status: <span id="connection-status">Menghubungkan...</span>
-    </div>
-    
     <div class="chat-app">
         {{-- Chat Header --}}
         @include('Chat.partials.chat-header')

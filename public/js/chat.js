@@ -209,13 +209,6 @@ class ChatApp {
     // Initialize Pusher with enhanced connection handling and validation
     initPusher() {
         try {
-            // Ensure we're using the global variables if available
-            if (window.PUSHER_APP_KEY && window.PUSHER_APP_CLUSTER) {
-                console.log('Using global Pusher variables for initialization');
-                window.chatConfig.pusherKey = window.PUSHER_APP_KEY;
-                window.chatConfig.pusherCluster = window.PUSHER_APP_CLUSTER;
-            }
-            
             // Check for previously successful cluster
             const savedCluster = localStorage.getItem('pusher_successful_cluster');
             if (savedCluster) {
@@ -258,11 +251,6 @@ class ChatApp {
                 this.isPusherConnected = true;
                 this.reconnectAttempts = 0;
                 this.updateConnectionStatus('connected');
-                
-                // Verify WebSocket connection is actually established
-                setTimeout(() => {
-                    this.verifyWebSocketConnection();
-                }, 1000);
             });
             
             this.pusher.connection.bind('disconnected', () => {
@@ -279,7 +267,22 @@ class ChatApp {
             });
             
             if (window.chatConfig.userId) {
-                this.subscribeToChannel();
+                this.channel = this.pusher.subscribe(`chat.${window.chatConfig.userId}`);
+                
+                this.channel.bind('pusher:subscription_succeeded', () => {
+                    console.log('Successfully subscribed to chat channel');
+                });
+                
+                this.channel.bind('pusher:subscription_error', (error) => {
+                    console.error('Pusher subscription error:', error);
+                    this.isPusherConnected = false;
+                    this.updateConnectionStatus('failed');
+                });
+                
+                this.channel.bind('message.sent', (data) => {
+                    console.log('Received message via Pusher:', data);
+                    this.handleIncomingMessage(data);
+                });
             }
         } catch (error) {
             console.error('Failed to initialize Pusher:', error);
@@ -353,92 +356,6 @@ class ChatApp {
         }
     }
     
-    // Subscribe to Pusher channel for receiving messages
-    subscribeToChannel() {
-        if (!this.pusher || !window.chatConfig.userId) {
-            console.error('Cannot subscribe to channel: Pusher not initialized or user ID not available');
-            return false;
-        }
-        
-        const channelName = `chat.${window.chatConfig.userId}`;
-        console.log(`Subscribing to channel: ${channelName}`);
-        
-        try {
-            // Unsubscribe from existing channel if any
-            if (this.channel) {
-                try {
-                    this.pusher.unsubscribe(channelName);
-                } catch (e) {
-                    console.warn('Error unsubscribing from existing channel:', e);
-                }
-            }
-            
-            // Subscribe to channel
-            this.channel = this.pusher.subscribe(channelName);
-            
-            // Set up event handlers
-            this.channel.bind('pusher:subscription_succeeded', () => {
-                console.log('Successfully subscribed to chat channel');
-            });
-            
-            this.channel.bind('pusher:subscription_error', (error) => {
-                console.error('Pusher subscription error:', error);
-                this.isPusherConnected = false;
-                this.updateConnectionStatus('failed');
-            });
-            
-            this.channel.bind('message.sent', (data) => {
-                console.log('Received message via Pusher:', data);
-                this.handleIncomingMessage(data);
-            });
-            
-            return true;
-        } catch (error) {
-            console.error('Failed to subscribe to channel:', error);
-            return false;
-        }
-    }
-    
-    // Verify that WebSocket connection is actually established
-    verifyWebSocketConnection() {
-        if (!this.pusher || !this.pusher.connection) {
-            console.error('Pusher instance or connection not available');
-            return false;
-        }
-        
-        const state = this.pusher.connection.state;
-        console.log(`Verifying WebSocket connection. Current state: ${state}`);
-        
-        // Check if socket is available
-        if (!this.pusher.connection.socket) {
-            console.error('WebSocket connection not established despite Pusher reporting connected state');
-            
-            // Log detailed information
-            this.logWebSocketInfo();
-            
-            // Try to reconnect with correct configuration
-            this.reconnectWithCorrectCluster();
-            return false;
-        }
-        
-        // Verify socket URL matches expected format
-        const socketUrl = this.pusher.connection.socket.url;
-        const expectedUrl = `wss://ws-${window.chatConfig.pusherCluster}.pusher.com`;
-        
-        if (!socketUrl || !socketUrl.includes(expectedUrl)) {
-            console.error('WebSocket URL mismatch or invalid');
-            console.error(`Expected URL to include: ${expectedUrl}`);
-            console.error(`Actual URL: ${socketUrl || 'tidak tersedia'}`);
-            
-            // Try to reconnect with correct configuration
-            this.reconnectWithCorrectCluster();
-            return false;
-        }
-        
-        console.log('WebSocket connection verified successfully');
-        return true;
-    }
-    
     // Monitor connection status with enhanced diagnostics
     monitorConnection() {
         // Initial connection check
@@ -458,13 +375,8 @@ class ChatApp {
                     console.log(`Connecting to: wss://ws-${window.chatConfig.pusherCluster}.pusher.com`);
                 }
                 
-                // Verify WebSocket connection if Pusher reports connected
-                if (state === 'connected') {
-                    this.verifyWebSocketConnection();
-                } else {
-                    // Log WebSocket URL information for debugging
-                    this.logWebSocketInfo();
-                }
+                // Log WebSocket URL information for debugging
+                this.logWebSocketInfo();
             }
         }, 10000); // Check every 10 seconds
     }
@@ -476,18 +388,6 @@ class ChatApp {
         // Expected WebSocket URL
         const expectedUrl = `wss://ws-${config.pusherCluster}.pusher.com`;
         console.log(`Expected WebSocket URL: ${expectedUrl}`);
-        
-        // Log global variables for debugging
-        console.log('Global Pusher variables:', {
-            PUSHER_APP_KEY: window.PUSHER_APP_KEY,
-            PUSHER_APP_CLUSTER: window.PUSHER_APP_CLUSTER
-        });
-        
-        // Log chatConfig for debugging
-        console.log('chatConfig values:', {
-            pusherKey: config.pusherKey,
-            pusherCluster: config.pusherCluster
-        });
         
         // Actual WebSocket URL if available
         if (this.pusher && this.pusher.connection && this.pusher.connection.socket) {
@@ -501,40 +401,9 @@ class ChatApp {
                 console.warn('WebSocket URL format mismatch!');
                 console.warn(`Expected to include: ${expectedUrl}`);
                 console.warn(`But got: ${actualUrl}`);
-                
-                // Try to reconnect with correct cluster
-                this.reconnectWithCorrectCluster();
             }
         } else {
             console.log('Actual WebSocket URL: tidak tersedia (koneksi belum dibuat)');
-            
-            // Check if Pusher is in connected state but socket is not available
-            if (this.pusher && this.pusher.connection && this.pusher.connection.state === 'connected') {
-                console.warn('Pusher reports connected state but WebSocket is not available');
-                this.reconnectWithCorrectCluster();
-            }
-        }
-    }
-    
-    // Reconnect with correct cluster
-    reconnectWithCorrectCluster() {
-        console.log('Attempting to reconnect with correct cluster configuration');
-        
-        // Ensure we're using the global variables directly
-        if (window.PUSHER_APP_KEY && window.PUSHER_APP_CLUSTER) {
-            console.log('Using global Pusher variables for reconnection');
-            window.chatConfig.pusherKey = window.PUSHER_APP_KEY;
-            window.chatConfig.pusherCluster = window.PUSHER_APP_CLUSTER;
-            
-            // Disconnect existing connection
-            if (this.pusher) {
-                this.pusher.disconnect();
-            }
-            
-            // Reinitialize Pusher
-            setTimeout(() => {
-                this.initPusher();
-            }, 1000);
         }
     }
     
@@ -554,29 +423,13 @@ class ChatApp {
         if (!config.pusherKey) {
             console.error('Pusher key is missing in configuration');
             errorMessages.push('Pusher key tidak tersedia');
-            
-            // Try to use global variable if available
-            if (window.PUSHER_APP_KEY) {
-                console.log('Using global PUSHER_APP_KEY as fallback');
-                config.pusherKey = window.PUSHER_APP_KEY;
-                isValid = true;
-            } else {
-                isValid = false;
-            }
+            isValid = false;
         }
         
         if (!config.pusherCluster) {
             console.error('Pusher cluster is missing in configuration');
             errorMessages.push('Pusher cluster tidak tersedia');
-            
-            // Try to use global variable if available
-            if (window.PUSHER_APP_CLUSTER) {
-                console.log('Using global PUSHER_APP_CLUSTER as fallback');
-                config.pusherCluster = window.PUSHER_APP_CLUSTER;
-                isValid = true;
-            } else {
-                isValid = false;
-            }
+            isValid = false;
         }
         
         // Validate cluster format
@@ -584,22 +437,11 @@ class ChatApp {
             console.error(`Invalid Pusher cluster format: ${config.pusherCluster}`);
             console.log('Cluster should be in format like: ap1, eu, us2, etc.');
             errorMessages.push(`Format cluster tidak valid: ${config.pusherCluster}`);
-            
-            // Try to use global variable if available and valid
-            if (window.PUSHER_APP_CLUSTER && /^[a-z]{2}[0-9]?$/.test(window.PUSHER_APP_CLUSTER)) {
-                console.log('Using global PUSHER_APP_CLUSTER as fallback for invalid format');
-                config.pusherCluster = window.PUSHER_APP_CLUSTER;
-                isValid = true;
-            } else {
-                // Default to ap1 as last resort
-                console.log('Defaulting to ap1 cluster as last resort');
-                config.pusherCluster = 'ap1';
-                isValid = true;
-            }
+            isValid = false;
         }
         
         // Display error messages if any
-        if (errorMessages.length > 0 && !isValid) {
+        if (errorMessages.length > 0) {
             // Update connection status
             this.updateConnectionStatus('failed');
             
@@ -609,10 +451,7 @@ class ChatApp {
             // Log all errors
             console.error('Pusher configuration errors:', errorMessages);
         } else {
-            console.log('Pusher configuration is valid or has been fixed:', {
-                pusherKey: config.pusherKey,
-                pusherCluster: config.pusherCluster
-            });
+            console.log('Pusher configuration is valid');
         }
         
         return isValid;
@@ -624,75 +463,6 @@ class ChatApp {
         
         // Update UI to show connecting status
         this.updateConnectionStatus('connecting');
-        
-        // Ensure we're using the global variables if available
-        if (window.PUSHER_APP_KEY && window.PUSHER_APP_CLUSTER) {
-            console.log('Using global Pusher variables for alternative connection');
-            window.chatConfig.pusherKey = window.PUSHER_APP_KEY;
-            
-            // If the global cluster is different from current one, try it first
-            if (window.PUSHER_APP_CLUSTER !== window.chatConfig.pusherCluster) {
-                console.log(`Trying global cluster first: ${window.PUSHER_APP_CLUSTER}`);
-                this.showNotification(`Mencoba koneksi dengan cluster global: ${window.PUSHER_APP_CLUSTER}`, 2000);
-                
-                try {
-                    // Update configuration with global cluster
-                    window.chatConfig.pusherCluster = window.PUSHER_APP_CLUSTER;
-                    
-                    // Create new Pusher instance with global cluster
-                    const globalPusher = new Pusher(window.chatConfig.pusherKey, {
-                        cluster: window.chatConfig.pusherCluster,
-                        encrypted: true,
-                        enabledTransports: ['ws', 'wss'],
-                        disabledTransports: []
-                    });
-                    
-                    // Set up connection event handlers
-                    globalPusher.connection.bind('connected', () => {
-                        console.log(`Successfully connected with global cluster: ${window.PUSHER_APP_CLUSTER}`);
-                        this.showNotification(`Koneksi berhasil dengan cluster global: ${window.PUSHER_APP_CLUSTER}`);
-                        
-                        // Replace the main pusher instance
-                        if (this.pusher) {
-                            this.pusher.disconnect();
-                        }
-                        
-                        this.pusher = globalPusher;
-                        this.isPusherConnected = true;
-                        
-                        // Update UI to show connected status
-                        this.updateConnectionStatus('connected');
-                        
-                        // Subscribe to the channel with the new connection
-                        this.subscribeToChannel();
-                        
-                        // Save successful cluster to localStorage for future use
-                        localStorage.setItem('pusher_successful_cluster', window.PUSHER_APP_CLUSTER);
-                        
-                        return; // Exit if successful
-                    });
-                    
-                    // Handle connection errors
-                    globalPusher.connection.bind('error', (error) => {
-                        console.error(`Failed to connect with global cluster ${window.PUSHER_APP_CLUSTER}:`, error);
-                        // Continue with common clusters
-                    });
-                    
-                    // Set timeout to prevent hanging
-                    setTimeout(() => {
-                        if (globalPusher.connection.state !== 'connected') {
-                            console.log(`Global cluster ${window.PUSHER_APP_CLUSTER} connection timed out`);
-                            globalPusher.disconnect();
-                            // Continue with common clusters
-                        }
-                    }, 5000);
-                    
-                } catch (error) {
-                    console.error(`Failed to connect with global cluster ${window.PUSHER_APP_CLUSTER}:`, error);
-                    // Continue with common clusters
-                }
-            }
-        }
         
         // Common Pusher clusters to try
         const commonClusters = ['ap1', 'ap2', 'us1', 'us2', 'eu', 'mt1'];
@@ -1065,68 +835,35 @@ class ChatApp {
             document.body.appendChild(statusIndicator);
         }
         
-        // Get cluster info for display
-        const config = window.chatConfig;
-        const clusterInfo = config && config.pusherCluster ? ` (${config.pusherCluster})` : '';
-        
         // Update status indicator based on connection state
         switch(state) {
             case 'connected':
-                statusIndicator.textContent = `🟢 Terhubung${clusterInfo}`;
+                statusIndicator.textContent = '🟢 Terhubung';
                 statusIndicator.style.backgroundColor = '#dff0d8';
                 statusIndicator.style.color = '#3c763d';
                 break;
             case 'connecting':
-                statusIndicator.textContent = `🟡 Menghubungkan...${clusterInfo}`;
+                statusIndicator.textContent = '🟡 Menghubungkan...';
                 statusIndicator.style.backgroundColor = '#fcf8e3';
                 statusIndicator.style.color = '#8a6d3b';
                 break;
             case 'disconnected':
             case 'failed':
-                statusIndicator.textContent = `🔴 Terputus${clusterInfo}`;
+                statusIndicator.textContent = '🔴 Terputus';
                 statusIndicator.style.backgroundColor = '#f2dede';
                 statusIndicator.style.color = '#a94442';
                 break;
             default:
-                statusIndicator.textContent = `⚪ Tidak diketahui${clusterInfo}`;
+                statusIndicator.textContent = '⚪ Tidak diketahui';
                 statusIndicator.style.backgroundColor = '#f5f5f5';
                 statusIndicator.style.color = '#333';
         }
-        
-        // Add debug mode toggle
-        statusIndicator.setAttribute('data-debug', 'false');
-        statusIndicator.addEventListener('dblclick', (e) => {
-            e.stopPropagation();
-            const isDebug = statusIndicator.getAttribute('data-debug') === 'true';
-            statusIndicator.setAttribute('data-debug', (!isDebug).toString());
-            
-            if (!isDebug) {
-                // Show extended debug info
-                const globalKey = window.PUSHER_APP_KEY || 'tidak tersedia';
-                const globalCluster = window.PUSHER_APP_CLUSTER || 'tidak tersedia';
-                const configKey = config && config.pusherKey ? '✓' : '✗';
-                
-                statusIndicator.innerHTML = `
-                    <div style="font-size:10px;line-height:1.2">
-                        <div>🔑 ${configKey} | 🌐 ${config.pusherCluster || '?'}</div>
-                        <div>G: ${globalKey.substring(0,5)}...${globalCluster}</div>
-                    </div>
-                `;
-            } else {
-                // Restore normal status
-                this.updateConnectionStatus(state);
-            }
-        });
     }
     
     // Show detailed connection information
     showConnectionDetails() {
         const config = window.chatConfig;
         const state = this.pusher ? this.pusher.connection.state : 'not initialized';
-        
-        // Get global variables
-        const globalKey = window.PUSHER_APP_KEY || 'tidak tersedia';
-        const globalCluster = window.PUSHER_APP_CLUSTER || 'tidak tersedia';
         
         // Get actual WebSocket URL if available
         let wsUrl = 'tidak tersedia';
@@ -1145,12 +882,6 @@ class ChatApp {
         // Get connection history
         const reconnectAttempts = this.reconnectAttempts || 0;
         
-        // Check for configuration issues
-        const hasGlobalVars = globalKey !== 'tidak tersedia' && globalCluster !== 'tidak tersedia';
-        const hasConfigVars = config && config.pusherKey && config.pusherCluster;
-        const configMismatch = hasGlobalVars && hasConfigVars && 
-                              (globalKey !== config.pusherKey || globalCluster !== config.pusherCluster);
-        
         const details = document.createElement('div');
         details.style.position = 'fixed';
         details.style.bottom = '40px';
@@ -1168,35 +899,19 @@ class ChatApp {
         details.innerHTML = `
             <h3 style="margin-top:0;font-size:14px;font-weight:bold">Detail Koneksi Pusher</h3>
             <p><strong>Status:</strong> <span style="color:${state === 'connected' ? '#3c763d' : (state === 'connecting' ? '#8a6d3b' : '#a94442')}">${state}</span></p>
+            <p><strong>Cluster:</strong> ${config.pusherCluster || 'tidak diatur'}</p>
+            <p><strong>Key:</strong> ${config.pusherKey ? '✓ (tersedia)' : '✗ (tidak tersedia)'}</p>
+            <p><strong>URL Ekspektasi:</strong> wss://ws-${config.pusherCluster}.pusher.com</p>
+            <p><strong>URL Aktual:</strong> <span style="word-break: break-all; color:${isUrlValid ? '#3c763d' : '#a94442'}">${wsUrl}</span></p>
+            <p><strong>URL Valid:</strong> <span style="color:${isUrlValid ? '#3c763d' : '#a94442'}">${isUrlValid ? '✓ Ya' : '✗ Tidak'}</span></p>
+            <p><strong>Mode Polling:</strong> ${this.pollingEnabled ? 'Aktif' : 'Tidak aktif'}</p>
+            <p><strong>Cluster Tersimpan:</strong> ${savedCluster}</p>
+            <p><strong>Percobaan Koneksi Ulang:</strong> ${reconnectAttempts}</p>
+            <p><strong>Koneksi Terakhir:</strong> ${new Date().toLocaleString()}</p>
             
-            <div style="margin-top: 10px; padding: 8px; background-color: #f0f8ff; border-radius: 4px; border-left: 3px solid #1e90ff;">
-                <p style="margin: 0 0 5px 0; font-weight: bold;">Konfigurasi Global:</p>
-                <p style="margin: 0;"><strong>PUSHER_APP_KEY:</strong> ${globalKey !== 'tidak tersedia' ? globalKey.substring(0, 5) + '...' : 'tidak tersedia'}</p>
-                <p style="margin: 0;"><strong>PUSHER_APP_CLUSTER:</strong> ${globalCluster}</p>
-            </div>
-            
-            <div style="margin-top: 10px; padding: 8px; background-color: #f0fff0; border-radius: 4px; border-left: 3px solid #32cd32;">
-                <p style="margin: 0 0 5px 0; font-weight: bold;">Konfigurasi chatConfig:</p>
-                <p style="margin: 0;"><strong>pusherKey:</strong> ${config.pusherKey ? config.pusherKey.substring(0, 5) + '...' : 'tidak tersedia'}</p>
-                <p style="margin: 0;"><strong>pusherCluster:</strong> ${config.pusherCluster || 'tidak tersedia'}</p>
-            </div>
-            
-            <div style="margin-top: 10px;">
-                <p><strong>URL Ekspektasi:</strong> wss://ws-${config.pusherCluster}.pusher.com</p>
-                <p><strong>URL Aktual:</strong> <span style="word-break: break-all; color:${isUrlValid ? '#3c763d' : '#a94442'}">${wsUrl}</span></p>
-                <p><strong>URL Valid:</strong> <span style="color:${isUrlValid ? '#3c763d' : '#a94442'}">${isUrlValid ? '✓ Ya' : '✗ Tidak'}</span></p>
-                <p><strong>Mode Polling:</strong> ${this.pollingEnabled ? 'Aktif' : 'Tidak aktif'}</p>
-                <p><strong>Cluster Tersimpan:</strong> ${savedCluster}</p>
-                <p><strong>Percobaan Koneksi Ulang:</strong> ${reconnectAttempts}</p>
-                <p><strong>Koneksi Terakhir:</strong> ${new Date().toLocaleString()}</p>
-            </div>
-            
-            <div style="margin-top: 10px; padding: 8px; background-color: ${configMismatch ? '#fff0f0' : '#f8f9fa'}; border-radius: 4px; ${configMismatch ? 'border-left: 3px solid #ff6347;' : ''}">
+            <div style="margin-top: 10px; padding: 8px; background-color: #f8f9fa; border-radius: 4px;">
                 <p style="margin: 0 0 5px 0; font-weight: bold;">Diagnostik:</p>
                 <ul style="margin: 0; padding-left: 20px;">
-                    ${configMismatch ? '<li style="color: #a94442;"><strong>Ketidakcocokan konfigurasi!</strong> Variabel global dan chatConfig memiliki nilai berbeda.</li>' : ''}
-                    ${!hasGlobalVars ? '<li style="color: #a94442;"><strong>Variabel global tidak tersedia!</strong> window.PUSHER_APP_KEY dan/atau window.PUSHER_APP_CLUSTER tidak terdefinisi.</li>' : ''}
-                    ${!hasConfigVars ? '<li style="color: #a94442;"><strong>Konfigurasi chatConfig tidak lengkap!</strong> window.chatConfig.pusherKey dan/atau window.chatConfig.pusherCluster tidak terdefinisi.</li>' : ''}
                     <li>Jika URL aktual menunjukkan <code>wss://ws-.pusher.com</code> (tanpa cluster), kemungkinan variabel lingkungan <code>PUSHER_APP_CLUSTER</code> tidak terdefinisi dengan benar.</li>
                     <li>Pastikan nilai <code>PUSHER_APP_CLUSTER</code> di file <code>.env</code> sudah benar (contoh: ap1, eu, us2).</li>
                     <li>Jika menggunakan Railway, pastikan variabel lingkungan sudah dikonfigurasi dengan benar.</li>
@@ -1207,7 +922,6 @@ class ChatApp {
                 <button id="close-connection-details" style="padding:5px 10px;background:#f5f5f5;border:1px solid #ddd;border-radius:3px;cursor:pointer">Tutup</button>
                 <button id="retry-connection" style="padding:5px 10px;background:#5cb85c;color:white;border:1px solid #4cae4c;border-radius:3px;cursor:pointer;margin-left:5px">Coba Lagi</button>
                 <button id="copy-debug-info" style="padding:5px 10px;background:#5bc0de;color:white;border:1px solid #46b8da;border-radius:3px;cursor:pointer;margin-left:5px">Salin Info</button>
-                <button id="force-reconnect" style="padding:5px 10px;background:#f0ad4e;color:white;border:1px solid #eea236;border-radius:3px;cursor:pointer;margin-left:5px">Paksa Koneksi Ulang</button>
             </div>
         `;
         
@@ -1228,10 +942,8 @@ class ChatApp {
             const debugInfo = `
                 Pusher Debug Info:
                 - Status: ${state}
-                - Global PUSHER_APP_KEY: ${globalKey !== 'tidak tersedia' ? globalKey.substring(0, 5) + '...' : 'tidak tersedia'}
-                - Global PUSHER_APP_CLUSTER: ${globalCluster}
-                - chatConfig.pusherKey: ${config.pusherKey ? config.pusherKey.substring(0, 5) + '...' : 'tidak tersedia'}
-                - chatConfig.pusherCluster: ${config.pusherCluster || 'tidak tersedia'}
+                - Cluster: ${config.pusherCluster || 'tidak diatur'}
+                - Key: ${config.pusherKey ? 'tersedia' : 'tidak tersedia'}
                 - URL Ekspektasi: wss://ws-${config.pusherCluster}.pusher.com
                 - URL Aktual: ${wsUrl}
                 - URL Valid: ${isUrlValid ? 'Ya' : 'Tidak'}
@@ -1240,9 +952,7 @@ class ChatApp {
                 - Percobaan Koneksi Ulang: ${reconnectAttempts}
                 - Waktu: ${new Date().toLocaleString()}
                 
-                Catatan: 
-                - Jika URL aktual menunjukkan wss://ws-.pusher.com (tanpa cluster), kemungkinan variabel lingkungan PUSHER_APP_CLUSTER tidak terdefinisi dengan benar.
-                - Pastikan window.PUSHER_APP_KEY dan window.PUSHER_APP_CLUSTER diinisialisasi sebelum window.chatConfig.
+                Catatan: Jika URL aktual menunjukkan wss://ws-.pusher.com (tanpa cluster), kemungkinan variabel lingkungan PUSHER_APP_CLUSTER tidak terdefinisi dengan benar.
             `.trim();
             
             // Copy to clipboard
@@ -1252,12 +962,6 @@ class ChatApp {
                 console.error('Gagal menyalin ke clipboard:', err);
                 this.showNotification('Gagal menyalin informasi debug');
             });
-        });
-        
-        // Add force reconnect handler
-        document.getElementById('force-reconnect').addEventListener('click', () => {
-            document.body.removeChild(details);
-            this.reconnectWithCorrectCluster();
         });
     }
     
