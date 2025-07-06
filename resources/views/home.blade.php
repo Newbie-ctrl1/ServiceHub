@@ -59,8 +59,20 @@
 
             </div>
             <div class="row">
+                @php
+                    $hasActiveBanner = false;
+                    if($allBanners && $allBanners->count() > 0) {
+                        foreach($allBanners as $banner) {
+                            if($banner->is_active) {
+                                $hasActiveBanner = true;
+                                break;
+                            }
+                        }
+                    }
+                @endphp
                 @if($allBanners && $allBanners->count() > 0)
                     @foreach($allBanners as $banner)
+                    @if($banner->is_active)
                     <!-- Store Banner -->
                     <div class="col-12 mb-4">
                         <div class="service-card service-card-horizontal">
@@ -118,7 +130,35 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endforeach
+                @elseif(!$hasActiveBanner)
+                <!-- No Active Banner Available -->
+                <div class="col-12 mb-4">
+                    <div class="service-card service-card-horizontal">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <div class="service-image">
+                                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJ1c2luZXNzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Default Store" class="img-fluid">
+                                    <span class="service-badge">Toko Tersedia</span>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="service-content">
+                                    <h3 class="service-title">Belum Ada Toko Aktif</h3>
+                                    <div class="service-location mb-2">
+                                        <i class="fas fa-info-circle text-primary me-2"></i>
+                                        <span class="text-muted">Saat ini tidak ada toko yang aktif untuk ditampilkan</span>
+                                    </div>
+                                    <p class="service-description">Untuk membuat toko aktif, silakan login sebagai admin dan aktifkan toko di halaman admin.</p>
+                                    <div class="service-footer d-flex justify-content-end align-items-center">
+                                        <span class="btn btn-sm btn-secondary disabled">No Store Available</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @else
                 <!-- No Banner Available -->
                 <div class="col-12 mb-4">
@@ -132,10 +172,10 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="service-content">
-                                    <h3 class="service-title">Belum Ada Banner Toko Aktif</h3>
+                                    <h3 class="service-title">Belum Ada Banner Toko</h3>
                                     <div class="service-location mb-2">
                                         <i class="fas fa-info-circle text-primary me-2"></i>
-                                        <span class="text-muted">Silakan buat banner toko untuk menampilkan informasi toko Anda</span>
+                                        <span class="text-muted">Silakan buat banner toko untuk menampilkan informasi toko</span>
                                     </div>
                                     <p class="service-description">Untuk membuat banner toko, silakan login sebagai admin dan buat banner di halaman admin.</p>
                                     <div class="service-footer d-flex justify-content-end align-items-center">
