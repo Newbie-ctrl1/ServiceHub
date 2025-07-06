@@ -1,11 +1,15 @@
 // Chat Configuration
-window.chatConfig = {
+// PENTING: File ini tidak digunakan lagi secara langsung karena konfigurasi sudah diatur di chat-layout.blade.php
+// File ini hanya berfungsi sebagai fallback jika konfigurasi dari layout tidak tersedia
+// Jangan mengubah file ini kecuali Anda tahu apa yang Anda lakukan
+// Untuk mengubah konfigurasi, ubah di resources/views/Chat/layouts/chat-layout.blade.php
+window.chatConfig = window.chatConfig || {
     // Pusher configuration - These will be set dynamically from the layout
-    pusherKey: window.PUSHER_APP_KEY || '',
-    pusherCluster: window.PUSHER_APP_CLUSTER || 'ap1',
+    pusherKey: '',
+    pusherCluster: 'ap1',
     
     // User configuration - This will be set dynamically from the layout
-    userId: window.CURRENT_USER_ID || null,
+    userId: null,
     
     // API endpoints
     endpoints: {

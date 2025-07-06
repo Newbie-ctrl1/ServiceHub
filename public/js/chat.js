@@ -433,7 +433,7 @@ class ChatApp {
         }
         
         // Validate cluster format
-        if (!/^[a-z]{2}[0-9]?$/.test(config.pusherCluster)) {
+        if (config.pusherCluster && !/^[a-z]{2}[0-9]?$/.test(config.pusherCluster)) {
             console.error(`Invalid Pusher cluster format: ${config.pusherCluster}`);
             console.log('Cluster should be in format like: ap1, eu, us2, etc.');
             errorMessages.push(`Format cluster tidak valid: ${config.pusherCluster}`);
@@ -869,12 +869,14 @@ class ChatApp {
         let wsUrl = 'tidak tersedia';
         if (this.pusher && this.pusher.connection && this.pusher.connection.socket) {
             wsUrl = this.pusher.connection.socket.url || `wss://ws-${config.pusherCluster}.pusher.com`;
-        } else {
+        } else if (config.pusherCluster) {
             wsUrl = `wss://ws-${config.pusherCluster}.pusher.com`;
+        } else {
+            wsUrl = 'wss://ws-.pusher.com';
         }
         
         // Check if URL is valid (contains cluster)
-        const isUrlValid = wsUrl.includes(`ws-${config.pusherCluster}`);
+        const isUrlValid = config.pusherCluster && wsUrl.includes(`ws-${config.pusherCluster}`);
         
         // Get saved cluster from localStorage if any
         const savedCluster = localStorage.getItem('pusher_successful_cluster') || 'tidak ada';
@@ -901,10 +903,10 @@ class ChatApp {
             <p><strong>Status:</strong> <span style="color:${state === 'connected' ? '#3c763d' : (state === 'connecting' ? '#8a6d3b' : '#a94442')}">${state}</span></p>
             <p><strong>Cluster:</strong> ${config.pusherCluster || 'tidak diatur'}</p>
             <p><strong>Key:</strong> ${config.pusherKey ? '✓ (tersedia)' : '✗ (tidak tersedia)'}</p>
-            <p><strong>URL Ekspektasi:</strong> wss://ws-${config.pusherCluster}.pusher.com</p>
+            <p><strong>URL Ekspektasi:</strong> wss://ws-${config.pusherCluster || ''}.pusher.com</p>
             <p><strong>URL Aktual:</strong> <span style="word-break: break-all; color:${isUrlValid ? '#3c763d' : '#a94442'}">${wsUrl}</span></p>
             <p><strong>URL Valid:</strong> <span style="color:${isUrlValid ? '#3c763d' : '#a94442'}">${isUrlValid ? '✓ Ya' : '✗ Tidak'}</span></p>
-            <p><strong>Mode Polling:</strong> ${this.pollingEnabled ? 'Aktif' : 'Tidak aktif'}</p>
+            <p><strong>Mode Polling:</strong> ${this.isPolling ? 'Aktif' : 'Tidak aktif'}</p>
             <p><strong>Cluster Tersimpan:</strong> ${savedCluster}</p>
             <p><strong>Percobaan Koneksi Ulang:</strong> ${reconnectAttempts}</p>
             <p><strong>Koneksi Terakhir:</strong> ${new Date().toLocaleString()}</p>
@@ -912,9 +914,9 @@ class ChatApp {
             <div style="margin-top: 10px; padding: 8px; background-color: #f8f9fa; border-radius: 4px;">
                 <p style="margin: 0 0 5px 0; font-weight: bold;">Diagnostik:</p>
                 <ul style="margin: 0; padding-left: 20px;">
-                    <li>Jika URL aktual menunjukkan <code>wss://ws-.pusher.com</code> (tanpa cluster), kemungkinan variabel lingkungan <code>PUSHER_APP_CLUSTER</code> tidak terdefinisi dengan benar.</li>
+                    <li>Jika URL aktual menunjukkan <code>wss://ws-.pusher.com</code> (tanpa cluster), kemungkinan konfigurasi <code>pusherCluster</code> tidak terdefinisi dengan benar.</li>
                     <li>Pastikan nilai <code>PUSHER_APP_CLUSTER</code> di file <code>.env</code> sudah benar (contoh: ap1, eu, us2).</li>
-                    <li>Jika menggunakan Railway, pastikan variabel lingkungan sudah dikonfigurasi dengan benar.</li>
+                    <li>Konfigurasi sekarang menggunakan <code>config('broadcasting.connections.pusher.options.cluster')</code> di blade.</li>
                 </ul>
             </div>
             
@@ -944,15 +946,15 @@ class ChatApp {
                 - Status: ${state}
                 - Cluster: ${config.pusherCluster || 'tidak diatur'}
                 - Key: ${config.pusherKey ? 'tersedia' : 'tidak tersedia'}
-                - URL Ekspektasi: wss://ws-${config.pusherCluster}.pusher.com
+                - URL Ekspektasi: wss://ws-${config.pusherCluster || ''}.pusher.com
                 - URL Aktual: ${wsUrl}
                 - URL Valid: ${isUrlValid ? 'Ya' : 'Tidak'}
-                - Mode Polling: ${this.pollingEnabled ? 'Aktif' : 'Tidak aktif'}
+                - Mode Polling: ${this.isPolling ? 'Aktif' : 'Tidak aktif'}
                 - Cluster Tersimpan: ${savedCluster}
                 - Percobaan Koneksi Ulang: ${reconnectAttempts}
                 - Waktu: ${new Date().toLocaleString()}
                 
-                Catatan: Jika URL aktual menunjukkan wss://ws-.pusher.com (tanpa cluster), kemungkinan variabel lingkungan PUSHER_APP_CLUSTER tidak terdefinisi dengan benar.
+                Catatan: Jika URL aktual menunjukkan wss://ws-.pusher.com (tanpa cluster), kemungkinan konfigurasi pusherCluster tidak terdefinisi dengan benar.
             `.trim();
             
             // Copy to clipboard

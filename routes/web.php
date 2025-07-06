@@ -137,18 +137,7 @@ Route::get('/CS', [CsController::class, 'CS']);
 Route::post('/api/groq/chat', [\App\Http\Controllers\Cs\GroqApiController::class, 'chat'])->name('api.groq.chat');
 Route::get('/api/groq/chat', [\App\Http\Controllers\Cs\GroqApiController::class, 'testConnection'])->name('api.groq.test');
 
-// Debug route untuk Pusher (sementara)
-Route::get('/debug-pusher', function () {
-    return [
-        'key' => config('broadcasting.connections.pusher.key'),
-        'cluster' => config('broadcasting.connections.pusher.options.cluster'),
-        'app_id' => config('broadcasting.connections.pusher.app_id'),
-        'env_values' => [
-            'PUSHER_APP_KEY' => env('PUSHER_APP_KEY'),
-            'PUSHER_APP_CLUSTER' => env('PUSHER_APP_CLUSTER'),
-        ],
-    ];
-});
+
 
 
 
