@@ -34,8 +34,8 @@
         // Chat Configuration
         window.chatConfig = {
             // Pusher configuration with validation
-            pusherKey: '{{ env("PUSHER_APP_KEY") }}',
-            pusherCluster: '{{ env("PUSHER_APP_CLUSTER") ? env("PUSHER_APP_CLUSTER") : "ap1" }}', // Default to ap1 if not set
+            pusherKey: '{{ config("broadcasting.connections.pusher.key") }}',
+            pusherCluster: '{{ config("broadcasting.connections.pusher.options.cluster") ? config("broadcasting.connections.pusher.options.cluster") : "ap1" }}', // Default to ap1 if not set
             
             // User configuration
             userId: {{ auth()->id() ?? 'null' }},
