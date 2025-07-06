@@ -29,13 +29,17 @@
     {{-- External JavaScript --}}
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     
-    {{-- Chat Configuration --}}
+    {{-- Chat Config is now directly in this file --}}
     <script>
+        // Inisialisasi variabel global Pusher terlebih dahulu
+        window.PUSHER_APP_KEY = '{{ config("broadcasting.connections.pusher.key") }}';
+        window.PUSHER_APP_CLUSTER = '{{ config("broadcasting.connections.pusher.options.cluster") ? config("broadcasting.connections.pusher.options.cluster") : "ap1" }}';
+        
         // Chat Configuration
         window.chatConfig = {
             // Pusher configuration with validation
-            pusherKey: '{{ config("broadcasting.connections.pusher.key") }}',
-            pusherCluster: '{{ config("broadcasting.connections.pusher.options.cluster") ? config("broadcasting.connections.pusher.options.cluster") : "ap1" }}', // Default to ap1 if not set
+            pusherKey: window.PUSHER_APP_KEY,
+            pusherCluster: window.PUSHER_APP_CLUSTER,
             
             // User configuration
             userId: {{ auth()->id() ?? 'null' }},
@@ -69,9 +73,20 @@
                 noContacts: 'Tidak ada kontak tersedia untuk chat.'
             }
         };
+        
+        // Log konfigurasi Pusher untuk debugging
+        console.log('Pusher Configuration:', {
+            key: window.PUSHER_APP_KEY,
+            cluster: window.PUSHER_APP_CLUSTER
+        });
     </script>
 </head>
 <body>
+    {{-- Pusher Connection Status Indicator --}}
+    <div id="pusher-status-indicator" style="position: fixed; top: 10px; right: 10px; padding: 5px 10px; border-radius: 5px; font-size: 12px; z-index: 1000; background-color: #f8f9fa; display: none;">
+        Status: <span id="connection-status">Menghubungkan...</span>
+    </div>
+    
     <div class="chat-app">
         {{-- Chat Header --}}
         @include('Chat.partials.chat-header')
