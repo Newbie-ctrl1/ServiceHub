@@ -15,6 +15,13 @@ use Illuminate\Queue\SerializesModels;
 class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    
+    /**
+     * The name of the queue the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $queue = 'default';
 
     public $message;
     public $user;
@@ -62,7 +69,7 @@ class MessageSent implements ShouldBroadcast
                 'sender' => [
                     'id' => $this->user->id,
                     'name' => $this->user->name,
-                    'profile_photo' => $this->user->profile_photo
+                    'profile_photo' => $this->user->profile_photo ?? null
                 ]
             ]
         ];
