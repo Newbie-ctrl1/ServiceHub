@@ -1,12 +1,16 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
-  "build": {
-    "builder": "NIXPACKS"
-  },
-  "deploy": {
-    "numReplicas": 1,
-    "startCommand": null,
-    "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 10
+  "services": {
+    "web": {
+      "startCommand": "php artisan serve --host=0.0.0.0 --port=${PORT}",
+      "installCommand": "composer install --no-dev --optimize-autoloader",
+      "buildCommand": "php artisan config:cache",
+      "healthcheckPath": "/"
+    },
+    "worker": {
+      "startCommand": "php artisan queue:work --tries=3 --timeout=90",
+      "installCommand": "composer install --no-dev --optimize-autoloader",
+      "buildCommand": "php artisan config:cache"
+    }
   }
 }
