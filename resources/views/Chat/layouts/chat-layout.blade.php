@@ -28,7 +28,6 @@
     
     {{-- External JavaScript --}}
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script src="{{ asset('js/pusher-connection-helper.js') }}"></script>
     
     {{-- Chat Configuration --}}
     <script>
@@ -91,11 +90,6 @@
     
     {{-- Custom JavaScript --}}
     <script src="{{ asset('js/chat.js') }}"></script>
-    
-    {{-- Pusher Diagnostics Tool --}}
-    @if(config('app.debug') || request()->has('debug'))
-        <script src="{{ asset('js/pusher-diagnostics.js') }}"></script>
-    @endif
     
     {{-- Additional Scripts --}}
     @stack('scripts')
