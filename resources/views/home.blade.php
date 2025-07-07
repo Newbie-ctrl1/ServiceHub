@@ -17,7 +17,7 @@
                            
                         </div>
                         <div class="banner-overlay"></div>
-                        <div class="banner-image" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80');"></div>
+                        <div class="banner-image" style="background-image: url('{{ secure_asset('images/Foto_Banner_1.jpg') }}');"></div>
                     </div>
                 </div>
                 
@@ -31,7 +31,7 @@
                                 
                                 </div>
                                 <div class="banner-overlay"></div>
-                                <div class="banner-image" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGJ1c2luZXNzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60');"></div>
+                                <div class="banner-image" style="background-image: url('{{ secure_asset('images/Foto_Banner_2.jpg') }}');"></div>
                             </div>
                         </div>
                         
@@ -42,8 +42,7 @@
                                     <!-- Banner content elements removed -->
                                 </div>
                                 <div class="banner-overlay"></div>
-                                <div class="banner-image" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGJ1c2luZXNzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60');"></div>
-                            </div>
+                                <div class="banner-image" style="background-image: url('{{ secure_asset('images/Foto_Banner_3.jpg') }}');"></div>
                         </div>
                     </div>
                 </div>

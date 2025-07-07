@@ -918,7 +918,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/logo.png') }}" alt="ServiceHub Logo" height="30" class="d-inline-block align-top mr-2">
+                <img src="{{ secure_asset('images/logo.png') }}" alt="ServiceHub Logo" height="30" class="d-inline-block align-top mr-2">
                 ServiceHub
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -981,7 +981,7 @@
                         <div class="team-img-container">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Ahmad Rizky</h3>
+                        <h3 class="team-name">Rendi Bagus Anggara</h3>
                         <p class="team-position">Founder & CEO</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -997,7 +997,7 @@
                         <div class="team-img-container">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Siti Nurhaliza</h3>
+                        <h3 class="team-name">Ahmad Hamdan Habibulloh</h3>
                         <p class="team-position">CTO</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -1013,7 +1013,7 @@
                         <div class="team-img-container">
                             <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Budi Santoso</h3>
+                        <h3 class="team-name">Yusron M</h3>
                         <p class="team-position">Operations</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -1029,7 +1029,7 @@
                         <div class="team-img-container">
                             <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Dewi Anggraini</h3>
+                        <h3 class="team-name">Arif Hidayat</h3>
                         <p class="team-position">Marketing</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -1045,7 +1045,7 @@
                         <div class="team-img-container">
                             <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Reza Mahendra</h3>
+                        <h3 class="team-name">Laila Zahro</h3>
                         <p class="team-position">CX Lead</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -1120,7 +1120,7 @@
                 </div>
             </div>
             <div class="text-center copyright">
-                <p>Selamat Datang di ServiceHub & Selamat menserv</p>
+                <p>Selamat Datang di ServiceHub & Selamat menservice</p>
             </div>
         </div>
     </footer>

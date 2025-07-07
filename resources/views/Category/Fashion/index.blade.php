@@ -12,12 +12,12 @@
             <div class="col-lg-8">
                 <div class="featured-item">
                     <div class="featured-item-overlay"></div>
-                    <img src="https://images.unsplash.com/photo-1601406984081-44d85ce92f90?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="featured-service" class="featured-img">
+                    <img src="{{ secure_asset('images/Konsultasi_gratis.jpg') }}" alt="featured-service" class="featured-img">
                     <div class="featured-content">
                         
                         <div class="featured-creator d-flex align-items-center mb-4">
                             <div class="creator-avatar">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="technician">
+                                <img src="{{ secure_asset('images/Avatar_KOnsultasi.png')}}" alt="technician">
                             </div>
 
                         </div>
@@ -30,10 +30,7 @@
             <div class="col-lg-4">
                 <div class="secondary-item">
                     <div class="secondary-item-overlay"></div>
-                    <img src="https://images.unsplash.com/photo-1580983561371-7f4b242d8ec0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="secondary-service" class="secondary-img">
-                    <div class="secondary-content">                  
-                        <a href="#" class="btn-outline">Lihat Detail</a>
-                    </div>
+                    <img src="{{ secure_asset('images/Fashion.jpg') }}" alt="secondary-service" class="secondary-img">
                 </div>
             </div>
         </div>
