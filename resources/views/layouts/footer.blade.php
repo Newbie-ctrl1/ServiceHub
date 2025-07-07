@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 text-center">
-        <p>selamat datang di ServiceHub selamat berbelanja</p>
+        <p>Cintaku Hanya Kamuuuu..... Cinta Merah Merah Jambu.......</p>
       </div>
     </div>
   </div>

@@ -53,7 +53,7 @@
     <div class="container px-4">
         <div class="row">
             <div class="col-md-6 text-center text-md-start">
-                <p class="mb-0" style="color: #555; font-size: 14px; letter-spacing: 0.2px; font-weight: 400;">Selamat datang di ServiceHub, selamat berbelanja</p>
+                <p class="mb-0" style="color: #555; font-size: 14px; letter-spacing: 0.2px; font-weight: 400;">Cintaku Hanya Kamuuuu..... Cinta Merah Merah Jambu.......</p>
             </div>
             <div class="col-md-6 text-center text-md-end">
                 <a href="{{ route('home') }}" style="color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.3s;">
