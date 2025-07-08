@@ -19,8 +19,8 @@ class GroqApiController extends Controller
         // Log the test connection attempt
         Log::info('Groq API test connection attempt');
         
-        // Get the API key from environment variables
-        $apiKey = env('GROQ_API_KEY');
+        // Get the API key from config
+        $apiKey = config('services.groq.api_key');
         
         // Check if API key is configured
         if (!$apiKey) {
@@ -36,7 +36,8 @@ class GroqApiController extends Controller
             $response = Http::withoutVerifying()->withHeaders([
                 'Authorization' => 'Bearer ' . $apiKey,
                 'Content-Type' => 'application/json'
-            ])->get('https://api.groq.com/openai/v1/models');
+            ])->timeout(config('services.groq.timeout'))
+              ->get(config('services.groq.base_url') . '/models');
             
             if ($response->successful()) {
                 Log::info('Groq API connection test successful');
@@ -86,8 +87,8 @@ class GroqApiController extends Controller
                 // Model tidak lagi diperlukan karena sudah ditetapkan secara permanen
             ]);
 
-            // Get the API key from environment variables
-            $apiKey = env('GROQ_API_KEY');
+            // Get the API key from config
+            $apiKey = config('services.groq.api_key');
             
             if (!$apiKey || $apiKey === 'your_groq_api_key_here') {
                 Log::error('Groq API key not configured or using default value');
@@ -133,9 +134,9 @@ class GroqApiController extends Controller
                 'content' => $request->message
             ];
 
-            // Use fixed model regardless of what is sent from frontend
-            $model = 'llama3-70b-8192'; // Model tetap: Llama3 70B
-            Log::info('Using fixed Groq model', ['model' => $model]);
+            // Use model from config
+            $model = config('services.groq.model');
+            Log::info('Using Groq model from config', ['model' => $model]);
             
             // Prepare the request payload
             $payload = [
@@ -155,7 +156,8 @@ class GroqApiController extends Controller
             $response = Http::withoutVerifying()->withHeaders([
                 'Authorization' => 'Bearer ' . $apiKey,
                 'Content-Type' => 'application/json'
-            ])->post('https://api.groq.com/openai/v1/chat/completions', $payload);
+            ])->timeout(config('services.groq.timeout'))
+              ->post(config('services.groq.base_url') . '/chat/completions', $payload);
 
             // Check if the request was successful
             if ($response->successful()) {
@@ -169,7 +171,7 @@ class GroqApiController extends Controller
                     
                     return response()->json([
                         'message' => $content,
-                        'model' => 'llama3-70b-8192' // Model tetap: Llama3 70B
+                        'model' => config('services.groq.model')
                     ]);
                 } else {
                     Log::error('Unexpected API response format', ['response' => $responseData]);

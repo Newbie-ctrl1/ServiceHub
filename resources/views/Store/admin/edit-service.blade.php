@@ -1,6 +1,69 @@
 @extends('Store.admin.index')
 
 @section('content')
+<style>
+    /* Form styling */
+    .form-label {
+        font-weight: 500;
+        color: var(--text-primary);
+    }
+    
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1.5px solid var(--border-color);
+        padding: 10px 15px;
+        transition: all 0.3s;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.15);
+    }
+    
+    .input-group-text {
+        background-color: var(--background-light);
+        border: 1.5px solid var(--border-color);
+        border-radius: 8px;
+    }
+    
+    /* Card styling */
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s;
+        border: 1.5px solid var(--border-color);
+    }
+    
+    /* Section title */
+    .section-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+    
+    /* Image preview */
+    .image-preview-container {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 12px;
+        background-color: var(--background-light);
+        border: 1.5px dashed var(--border-color);
+    }
+    
+    .image-preview-row .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .image-preview-row .card-img-top {
+        height: 120px;
+        object-fit: cover;
+    }
+    
+    .card-img-top {
+        height: 150px;
+        object-fit: cover;
+    }
+</style>
 <div class="store-content">
     <div class="container py-4">
         <div class="row mb-4">
@@ -300,67 +363,5 @@
     });
 </script>
 
-<style>
-    /* Form styling */
-    .form-label {
-        font-weight: 500;
-        color: var(--text-primary);
-    }
-    
-    .form-control, .form-select {
-        border-radius: 8px;
-        border: 1.5px solid var(--border-color);
-        padding: 10px 15px;
-        transition: all 0.3s;
-    }
-    
-    .form-control:focus, .form-select:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.15);
-    }
-    
-    .input-group-text {
-        background-color: var(--background-light);
-        border: 1.5px solid var(--border-color);
-        border-radius: 8px;
-    }
-    
-    /* Card styling */
-    .card {
-        border-radius: 12px;
-        overflow: hidden;
-        transition: all 0.3s;
-        border: 1.5px solid var(--border-color);
-    }
-    
-    /* Section title */
-    .section-title {
-        font-size: 28px;
-        font-weight: 700;
-        color: var(--text-primary);
-    }
-    
-    /* Image preview */
-    .image-preview-container {
-        margin-top: 20px;
-        padding: 15px;
-        border-radius: 12px;
-        background-color: var(--background-light);
-        border: 1.5px dashed var(--border-color);
-    }
-    
-    .image-preview-row .card {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    }
-    
-    .image-preview-row .card-img-top {
-        height: 120px;
-        object-fit: cover;
-    }
-    
-    .card-img-top {
-        height: 150px;
-        object-fit: cover;
-    }
-</style>
+
 @endsection

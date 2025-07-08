@@ -1,65 +1,3 @@
-<footer class="footer">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <p>Cintaku Hanya Kamuuuu..... Cinta Merah Merah Jambu.......</p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- Floating Customer Service Icon -->
-<div class="floating-cs-icon">
-  <a href="javascript:void(0)" id="cs-button" data-toggle="tooltip" data-placement="left" title="Hubungi Customer Service">
-    <i class="fas fa-headset"></i>
-  </a>
-</div>
-
-<!-- CS Chat Container (will be shown/hidden via JavaScript) -->
-<div class="cs-chat-container hidden">
-    <div class="cs-chat-header">
-        <div class="cs-profile">
-            <div class="cs-avatar">
-                <img src="{{ asset('images/cs-avatar.png') }}" alt="CS Avatar" onerror="this.src='{{ asset('images/logo.png') }}'">
-                <span class="cs-status online"></span>
-            </div>
-            <div class="cs-info">
-                <h5>Customer Service</h5>
-                <p class="cs-status-text">Online</p>
-            </div>
-        </div>
-        <div class="cs-actions">
-            <button class="btn-minimize" id="minimizeChat"><i class="fas fa-minus"></i></button>
-            <button class="btn-close" id="closeChat"><i class="fas fa-times"></i></button>
-        </div>
-    </div>
-    
-    <div class="cs-chat-body" id="chatMessages">
-        <div class="chat-day-divider">
-            <span>Hari ini</span>
-        </div>
-        
-        <div class="message cs-message">
-            <div class="message-content">
-                <p>Halo! Selamat datang di ServiceHub. Ada yang bisa saya bantu?</p>
-                <span class="message-time">{{ date('H:i') }}</span>
-            </div>
-        </div>
-        
-        <!-- Messages will be dynamically added here -->
-    </div>
-    
-    <div class="cs-chat-footer">
-        <div class="cs-input-container">
-            <div class="cs-input-actions">
-                <button class="btn-attachment"><i class="fas fa-paperclip"></i></button>
-            </div>
-            <input type="text" id="messageInput" class="cs-message-input" placeholder="Ketik pesan Anda di sini...">
-            <button class="btn-send" id="sendMessage"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-</div>
-
 <style>
   .floating-cs-icon {
     position: fixed;
@@ -401,6 +339,71 @@
     }
   }
 </style>
+
+
+<footer class="footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>Cintaku Hanya Kamuuuu..... Cinta Merah Merah Jambu.......</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating Customer Service Icon -->
+<div class="floating-cs-icon">
+  <a href="javascript:void(0)" id="cs-button" data-toggle="tooltip" data-placement="left" title="Hubungi Customer Service">
+    <i class="fas fa-headset"></i>
+  </a>
+</div>
+
+<!-- CS Chat Container (will be shown/hidden via JavaScript) -->
+<div class="cs-chat-container hidden">
+    <div class="cs-chat-header">
+        <div class="cs-profile">
+            <div class="cs-avatar">
+                <img src="{{ asset('images/cs-avatar.png') }}" alt="CS Avatar" onerror="this.src='{{ asset('images/logo.png') }}'">
+                <span class="cs-status online"></span>
+            </div>
+            <div class="cs-info">
+                <h5>Customer Service</h5>
+                <p class="cs-status-text">Online</p>
+            </div>
+        </div>
+        <div class="cs-actions">
+            <button class="btn-minimize" id="minimizeChat"><i class="fas fa-minus"></i></button>
+            <button class="btn-close" id="closeChat"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+    
+    <div class="cs-chat-body" id="chatMessages">
+        <div class="chat-day-divider">
+            <span>Hari ini</span>
+        </div>
+        
+        <div class="message cs-message">
+            <div class="message-content">
+                <p>Halo! Selamat datang di ServiceHub. Ada yang bisa saya bantu?</p>
+                <span class="message-time">{{ date('H:i') }}</span>
+            </div>
+        </div>
+        
+        <!-- Messages will be dynamically added here -->
+    </div>
+    
+    <div class="cs-chat-footer">
+        <div class="cs-input-container">
+            <div class="cs-input-actions">
+                <button class="btn-attachment"><i class="fas fa-paperclip"></i></button>
+            </div>
+            <input type="text" id="messageInput" class="cs-message-input" placeholder="Ketik pesan Anda di sini...">
+            <button class="btn-send" id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

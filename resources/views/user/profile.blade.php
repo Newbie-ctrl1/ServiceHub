@@ -1,6 +1,39 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .border-4 {
+        border-width: 4px !important;
+        border-style: solid !important;
+    }
+    .info-card {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+    .icon-circle {
+        transition: all 0.3s ease;
+    }
+    .info-card:hover .icon-circle {
+        transform: scale(1.1);
+    }
+    .rounded-lg {
+        border-radius: 0.5rem !important;
+    }
+    .profile-cover {
+        background-size: cover;
+        background-position: center;
+    }
+    @media (max-width: 767.98px) {
+        .profile-header .position-relative {
+            margin-top: -40px;
+        }
+    }
+</style>
+
 <div class="container mt-5 pt-5">
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
@@ -116,36 +149,5 @@
     </div>
 </div>
 
-<style>
-    .border-4 {
-        border-width: 4px !important;
-        border-style: solid !important;
-    }
-    .info-card {
-        transition: all 0.3s ease;
-        border: 1px solid rgba(0,0,0,0.05);
-    }
-    .info-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    }
-    .icon-circle {
-        transition: all 0.3s ease;
-    }
-    .info-card:hover .icon-circle {
-        transform: scale(1.1);
-    }
-    .rounded-lg {
-        border-radius: 0.5rem !important;
-    }
-    .profile-cover {
-        background-size: cover;
-        background-position: center;
-    }
-    @media (max-width: 767.98px) {
-        .profile-header .position-relative {
-            margin-top: -40px;
-        }
-    }
-</style>
+
 @endsection

@@ -3,125 +3,6 @@
 @section('title', 'Jasa Service')
 
 @section('content')
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<!-- Main content section -->
-<div class="gadget-store-content" id="content">
-    <!-- Hero Section with Glassmorphism Effect -->
-    <div class="hero-section mb-5">
-        <div class="row g-4">
-            <div class="col-lg-8">
-                <div class="featured-item">
-                    <div class="featured-item-overlay"></div>
-                    <img src="{{ secure_asset('images/Konsultasi_gratis.png')}}" alt="featured-service" class="featured-img">
-                    <div class="featured-content">
-                        
-                        <div class="featured-creator d-flex align-items-center mb-4">
-                            <div class="creator-avatar">
-                                <img src="{{ secure_asset('images/Avatar_KOnsultasi.png')}}" alt="technician">
-                            </div>
-
-                        </div>
-                        <div class="featured-actions">
-                            <a href="/consult" class="btn-primary">Konsultasi Gratis <i class="fas fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="secondary-item">
-                    <div class="secondary-item-overlay"></div>
-                    <img src="{{ secure_asset('images/Gadget.jpg') }}" alt="secondary-service" class="secondary-img">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Trending Section with Modern Cards -->
-    <div class="trending-section">
-        <div class="section-header d-flex justify-content-between align-items-center mb-4">
-            <div class="section-heading">
-                <h3 class="section-title">Layanan Gadget</h3>
-                <p class="section-subtitle">Temukan berbagai layanan gadget dan styling terbaik</p>
-            </div>
-
-        </div>
-
-        <div class="trending-grid">
-            <div class="row g-4">
-                @forelse($gadgetServices as $service)
-                <div class="col-md-4">
-                    <div class="gadget-card service-card" data-service-id="{{ $service->id }}">
-                        <div class="gadget-card-img">
-                            @if($service->main_image)
-                                <img src="data:image/jpeg;base64,{{ base64_encode($service->main_image) }}" alt="{{ $service->title }}" class="img-fluid">
-                            @else
-                                <img src="https://images.unsplash.com/photo-1588702547919-26089e690ecc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="{{ $service->title }}" class="img-fluid">
-                            @endif
-                            
-                            @if($service->badge)
-                                <div class="card-badge service {{ strtolower($service->badge) }}">{{ $service->badge }}</div>
-                            @else
-                                <div class="card-badge service">Service</div>
-                            @endif
-                            
-                            <div class="card-actions">
-                                <button class="action-btn"><i class="far fa-heart"></i></button>
-                                <button class="action-btn"><i class="fas fa-share-alt"></i></button>
-                            </div>
-                        </div>
-                        <div class="gadget-card-content">
-                            <div class="creator-tag">
-                                @if($service->user && $service->user->profile_photo)
-                                    <img src="data:image/jpeg;base64,{{ base64_encode($service->user->profile_photo) }}" alt="{{ $service->user->name }}" class="creator-img">
-                                @else
-                                    <img src="{{ asset('images/default-profile.png') }}" alt="technician" class="creator-img">
-                                @endif
-                                <span>{{ $service->user ? $service->user->name : 'Teknisi Berpengalaman' }}</span>
-                            </div>
-                            <h4 class="gadget-title">{{ $service->title }}</h4>
-                            <div class="service-description">
-                                <p>{{ $service->short_description ?: $service->description }}</p>
-                            </div>
-                            <div class="gadget-meta">
-                                <div class="meta-item">
-                                    <i class="fas fa-money-bill-wave"></i>
-                                    <div>
-                                        <span class="meta-label">Mulai Dari</span>
-                                        <span class="meta-value">Rp {{ number_format($service->price, 0, ',', '.') }}</span>
-                                    </div>
-                                </div>
-                                <div class="meta-item">
-                                    <i class="fas fa-clock"></i>
-                                    <div>
-                                        <span class="meta-label">Estimasi</span>
-                                        <span class="meta-value">{{ $service->min_time }}-{{ $service->max_time }} hari</span>
-                                    </div>
-                                </div>
-                            </div>
-                            @if($service->location)
-                                <div class="service-location mb-2">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ $service->location }}</span>
-                                </div>
-                            @endif
-                            <a href="#" class="btn-bid service-btn" onclick="confirmBooking({{ $service->user ? $service->user->id : 'null' }}, '{{ $service->title }}')">Booking Now</a>
-                        </div>
-                    </div>
-                </div>
-                @empty
-                <div class="col-12">
-                    <div class="text-center py-5">
-                        <i class="fas fa-tshirt fa-3x text-muted mb-3"></i>
-                        <h4 class="text-muted">Belum Ada Layanan Gadget</h4>
-                        <p class="text-muted">Saat ini belum ada layanan dalam kategori Gadget. Silakan cek kembali nanti.</p>
-                    </div>
-                </div>
-                @endforelse
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Custom CSS for Gadget Page -->
 <style>
 /* Base Styles */
@@ -679,6 +560,127 @@
     }
 }
 </style>
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- Main content section -->
+<div class="gadget-store-content" id="content">
+    <!-- Hero Section with Glassmorphism Effect -->
+    <div class="hero-section mb-5">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="featured-item">
+                    <div class="featured-item-overlay"></div>
+                    <img src="{{ secure_asset('images/Konsultasi_gratis.png')}}" alt="featured-service" class="featured-img">
+                    <div class="featured-content">
+                        
+                        <div class="featured-creator d-flex align-items-center mb-4">
+                            <div class="creator-avatar">
+                                <img src="{{ secure_asset('images/Avatar_KOnsultasi.png')}}" alt="technician">
+                            </div>
+
+                        </div>
+                        <div class="featured-actions">
+                            <a href="/consult" class="btn-primary">Konsultasi Gratis <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="secondary-item">
+                    <div class="secondary-item-overlay"></div>
+                    <img src="{{ secure_asset('images/Gadget.jpg') }}" alt="secondary-service" class="secondary-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trending Section with Modern Cards -->
+    <div class="trending-section">
+        <div class="section-header d-flex justify-content-between align-items-center mb-4">
+            <div class="section-heading">
+                <h3 class="section-title">Layanan Gadget</h3>
+                <p class="section-subtitle">Temukan berbagai layanan gadget dan styling terbaik</p>
+            </div>
+
+        </div>
+
+        <div class="trending-grid">
+            <div class="row g-4">
+                @forelse($gadgetServices as $service)
+                <div class="col-md-4">
+                    <div class="gadget-card service-card" data-service-id="{{ $service->id }}">
+                        <div class="gadget-card-img">
+                            @if($service->main_image)
+                                <img src="data:image/jpeg;base64,{{ base64_encode($service->main_image) }}" alt="{{ $service->title }}" class="img-fluid">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1588702547919-26089e690ecc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="{{ $service->title }}" class="img-fluid">
+                            @endif
+                            
+                            @if($service->badge)
+                                <div class="card-badge service {{ strtolower($service->badge) }}">{{ $service->badge }}</div>
+                            @else
+                                <div class="card-badge service">Service</div>
+                            @endif
+                            
+                            <div class="card-actions">
+                                <button class="action-btn"><i class="far fa-heart"></i></button>
+                                <button class="action-btn"><i class="fas fa-share-alt"></i></button>
+                            </div>
+                        </div>
+                        <div class="gadget-card-content">
+                            <div class="creator-tag">
+                                @if($service->user && $service->user->profile_photo)
+                                    <img src="data:image/jpeg;base64,{{ base64_encode($service->user->profile_photo) }}" alt="{{ $service->user->name }}" class="creator-img">
+                                @else
+                                    <img src="{{ asset('images/default-profile.png') }}" alt="technician" class="creator-img">
+                                @endif
+                                <span>{{ $service->user ? $service->user->name : 'Teknisi Berpengalaman' }}</span>
+                            </div>
+                            <h4 class="gadget-title">{{ $service->title }}</h4>
+                            <div class="service-description">
+                                <p>{{ $service->short_description ?: $service->description }}</p>
+                            </div>
+                            <div class="gadget-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <div>
+                                        <span class="meta-label">Mulai Dari</span>
+                                        <span class="meta-value">Rp {{ number_format($service->price, 0, ',', '.') }}</span>
+                                    </div>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <span class="meta-label">Estimasi</span>
+                                        <span class="meta-value">{{ $service->min_time }}-{{ $service->max_time }} hari</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @if($service->location)
+                                <div class="service-location mb-2">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ $service->location }}</span>
+                                </div>
+                            @endif
+                            <a href="#" class="btn-bid service-btn" onclick="confirmBooking({{ $service->user ? $service->user->id : 'null' }}, '{{ $service->title }}')">Booking Now</a>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-tshirt fa-3x text-muted mb-3"></i>
+                        <h4 class="text-muted">Belum Ada Layanan Gadget</h4>
+                        <p class="text-muted">Saat ini belum ada layanan dalam kategori Gadget. Silakan cek kembali nanti.</p>
+                    </div>
+                </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!-- Custom JS for Gadget Page -->
 <script>

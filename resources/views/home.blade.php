@@ -3,6 +3,8 @@
 @section('title', 'Home')
 
 @section('content')
+
+
 <!-- Main content section -->
 <div class="home-content" id="content">
     <!-- Hero Banner Section -->

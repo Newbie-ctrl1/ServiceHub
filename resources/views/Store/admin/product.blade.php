@@ -6,6 +6,451 @@
 @endsection
 
 @section('content')
+<style>
+    /* Location and Category Styles */
+    .service-location, .service-category {
+        font-size: 0.85rem;
+        color: #666;
+        display: flex;
+        align-items: center;
+    }
+    
+    .service-location i, .service-category i {
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        margin-right: 5px;
+    }
+    
+    .service-location-detail, .service-category-detail {
+        font-size: 0.9rem;
+        color: #555;
+        background-color: rgba(26, 115, 232, 0.05);
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .service-location-detail i, .service-category-detail i {
+        color: var(--primary-color);
+        font-size: 1rem;
+        margin-right: 5px;
+    }
+    
+    .banner-location {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.9);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 20px;
+        margin-top: 10px;
+    }
+    
+    .banner-location i {
+        margin-right: 5px;
+    }
+    
+    /* Banner Admin Controls */
+    .banner-admin-controls {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 30px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .banner-form .form-control {
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #333;
+    }
+    
+    .banner-form .form-control::placeholder {
+        color: #666;
+    }
+    
+    .banner-image-preview {
+        position: relative;
+        margin-bottom: 15px;
+        min-height: 40px;
+    }
+    
+    .cancel-banner-image {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 25px;
+        height: 25px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    .cancel-banner-image:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    /* Banner Control Icons */
+    .banner-control-icons {
+        display: flex;
+        gap: 8px;
+    }
+    
+    .banner-control-icons .btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .banner-control-icons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .banner-control-icons .btn-light:hover {
+        background-color: #e9ecef;
+        border-color: #dee2e6;
+    }
+    
+    .banner-control-icons .btn-success:hover {
+        background-color: #157347;
+        border-color: #146c43;
+    }
+    
+    .banner-control-icons .btn-danger:hover {
+        background-color: #bb2d3b;
+        border-color: #b02a37;
+    }
+    
+    /* Banner Preview Overlay */
+    .banner-preview-overlay {
+        transition: all 0.3s ease;
+    }
+    
+    .banner-preview-overlay .fa-eye {
+        opacity: 0.8;
+    }
+    
+    /* Banner Admin Form Animation */
+    .banner-admin-controls {
+        transform-origin: top;
+        overflow: hidden;
+    }
+    
+    /* Service Cards */
+    .service-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        background-color: var(--background-card);
+        border: 1.5px solid var(--border-color);
+        position: relative;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        border-color: rgba(26, 115, 232, 0.3);
+    }
+    
+    .service-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--primary-gradient, linear-gradient(90deg, var(--primary-color), var(--primary-light)));
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s ease;
+    }
+    
+    .service-card:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+    
+    .service-img-container {
+        height: 180px;
+        overflow: hidden;
+    }
+    
+    .service-img {
+        object-fit: cover;
+        height: 100%;
+        transition: transform 0.5s;
+    }
+    
+    .service-card:hover .service-img {
+        transform: scale(1.05);
+    }
+    
+    .service-badge {
+        font-size: 12px;
+        font-weight: 500;
+        padding: 5px 10px;
+    }
+    
+    .service-fav-btn {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        border: none;
+        transition: all 0.3s;
+    }
+    
+    .service-fav-btn:hover {
+        background-color: white;
+        color: var(--accent-color);
+        transform: scale(1.1);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .service-fav-btn .fas {
+        color: var(--accent-color);
+        font-size: 16px;
+    }
+    
+    .service-fav-btn .far {
+        font-size: 16px;
+    }
+    
+    .service-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+    }
+    
+    .service-desc {
+        font-size: 14px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .service-time, .service-price {
+        font-size: 14px;
+    }
+    
+    .service-price {
+        color: var(--primary-color);
+    }
+    
+    /* Banner */
+    .store-banner {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+    }
+    
+    .store-banner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%);
+        z-index: 1;
+    }
+    
+    .store-banner .banner-content {
+        position: relative;
+        z-index: 2;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .banner-delete-form .btn-danger {
+        opacity: 0.8;
+        transition: all 0.3s;
+    }
+    
+    .banner-delete-form .btn-danger:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    
+    .banner-title {
+        font-size: 36px;
+        font-weight: 800;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        letter-spacing: -0.5px;
+    }
+    
+    .banner-text {
+        font-size: 18px;
+        opacity: 0.95;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .banner-btn {
+        padding: 12px 24px;
+        font-weight: 600;
+        border-radius: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s;
+        border: 2px solid transparent;
+    }
+    
+    .banner-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Modal Styles */
+    .modal-content {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+    }
+    
+    .modal-header {
+        border-bottom: 1.5px solid var(--border-color);
+        padding: 20px 24px;
+    }
+    
+    .modal-body {
+        padding: 24px;
+    }
+    
+    .modal-footer {
+        border-top: 1.5px solid var(--border-color);
+        padding: 16px 24px;
+    }
+    
+    .service-thumb {
+        width: 80px;
+        height: 60px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-radius: 8px;
+        margin: 0 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+    
+    .service-thumb.active {
+        border: 2px solid var(--primary-color);
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(26, 115, 232, 0.25);
+    }
+    
+    .service-thumb:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+    
+    .service-detail-tabs .nav-link {
+        color: var(--text-secondary);
+        padding: 12px 20px;
+        border-radius: 8px 8px 0 0;
+        font-weight: 500;
+        transition: all 0.3s;
+        position: relative;
+        border: 1px solid transparent;
+        margin-right: 4px;
+    }
+    
+    .service-detail-tabs .nav-link:hover {
+        color: var(--primary-color);
+        background-color: rgba(26, 115, 232, 0.05);
+    }
+    
+    .service-detail-tabs .nav-link.active {
+        color: var(--primary-color);
+        font-weight: 600;
+        background-color: #fff;
+        border: 1px solid var(--border-color);
+        border-bottom-color: #fff;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .service-detail-tabs .nav-link.active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--primary-gradient, linear-gradient(90deg, var(--primary-color), var(--primary-light)));
+        border-radius: 3px 3px 0 0;
+    }
+    
+    .service-detail-tabs .tab-content {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border-radius: 0 0 8px 8px;
+    }
+    
+    /* Pagination */
+    .pagination {
+        margin-top: 30px;
+        gap: 5px;
+    }
+    
+    .pagination .page-link {
+        color: var(--text-secondary);
+        border: 1.5px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-weight: 500;
+        transition: all 0.3s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
+    
+    .pagination .page-item.active .page-link {
+        background: var(--primary-gradient, linear-gradient(90deg, var(--primary-color), var(--primary-light)));
+        border-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 4px 8px rgba(26, 115, 232, 0.25);
+    }
+    
+    .pagination .page-link:hover {
+        background-color: var(--background-light);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    .pagination .page-item:first-child .page-link,
+    .pagination .page-item:last-child .page-link {
+        padding: 10px 14px;
+    }
+</style>
+
 <div class="store-content">
     <!-- Banner Section -->
     <div class="store-banner mb-4">
@@ -1090,450 +1535,7 @@
     }
 </script>
 
-<style>
-    /* Location and Category Styles */
-    .service-location, .service-category {
-        font-size: 0.85rem;
-        color: #666;
-        display: flex;
-        align-items: center;
-    }
-    
-    .service-location i, .service-category i {
-        color: var(--primary-color);
-        font-size: 0.9rem;
-        margin-right: 5px;
-    }
-    
-    .service-location-detail, .service-category-detail {
-        font-size: 0.9rem;
-        color: #555;
-        background-color: rgba(26, 115, 232, 0.05);
-        padding: 8px 12px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    
-    .service-location-detail i, .service-category-detail i {
-        color: var(--primary-color);
-        font-size: 1rem;
-        margin-right: 5px;
-    }
-    
-    .banner-location {
-        font-size: 0.95rem;
-        color: rgba(255, 255, 255, 0.9);
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        display: inline-flex;
-        align-items: center;
-        padding: 6px 12px;
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 20px;
-        margin-top: 10px;
-    }
-    
-    .banner-location i {
-        margin-right: 5px;
-    }
-    
-    /* Banner Admin Controls */
-    .banner-admin-controls {
-        background-color: rgba(255, 255, 255, 0.15);
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 30px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .banner-form .form-control {
-        background-color: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: #333;
-    }
-    
-    .banner-form .form-control::placeholder {
-        color: #666;
-    }
-    
-    .banner-image-preview {
-        position: relative;
-        margin-bottom: 15px;
-        min-height: 40px;
-    }
-    
-    .cancel-banner-image {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        width: 25px;
-        height: 25px;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 18px;
-        line-height: 1;
-    }
-    
-    .cancel-banner-image:hover {
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-    
-    /* Banner Control Icons */
-    .banner-control-icons {
-        display: flex;
-        gap: 8px;
-    }
-    
-    .banner-control-icons .btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-    
-    .banner-control-icons .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    }
-    
-    .banner-control-icons .btn-light:hover {
-        background-color: #e9ecef;
-        border-color: #dee2e6;
-    }
-    
-    .banner-control-icons .btn-success:hover {
-        background-color: #157347;
-        border-color: #146c43;
-    }
-    
-    .banner-control-icons .btn-danger:hover {
-        background-color: #bb2d3b;
-        border-color: #b02a37;
-    }
-    
-    /* Banner Preview Overlay */
-    .banner-preview-overlay {
-        transition: all 0.3s ease;
-    }
-    
-    .banner-preview-overlay .fa-eye {
-        opacity: 0.8;
-    }
-    
-    /* Banner Admin Form Animation */
-    .banner-admin-controls {
-        transform-origin: top;
-        overflow: hidden;
-    }
-    
-    /* Service Cards */
-    .service-card {
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-        transition: all 0.4s ease;
-        cursor: pointer;
-        background-color: var(--background-card);
-        border: 1.5px solid var(--border-color);
-        position: relative;
-    }
-    
-    .service-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-        border-color: rgba(26, 115, 232, 0.3);
-    }
-    
-    .service-card::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: var(--primary-gradient, linear-gradient(90deg, var(--primary-color), var(--primary-light)));
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.4s ease;
-    }
-    
-    .service-card:hover::after {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
-    
-    .service-img-container {
-        height: 180px;
-        overflow: hidden;
-    }
-    
-    .service-img {
-        object-fit: cover;
-        height: 100%;
-        transition: transform 0.5s;
-    }
-    
-    .service-card:hover .service-img {
-        transform: scale(1.05);
-    }
-    
-    .service-badge {
-        font-size: 12px;
-        font-weight: 500;
-        padding: 5px 10px;
-    }
-    
-    .service-fav-btn {
-        width: 36px;
-        height: 36px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        border: none;
-        transition: all 0.3s;
-    }
-    
-    .service-fav-btn:hover {
-        background-color: white;
-        color: var(--accent-color);
-        transform: scale(1.1);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-    }
-    
-    .service-fav-btn .fas {
-        color: var(--accent-color);
-        font-size: 16px;
-    }
-    
-    .service-fav-btn .far {
-        font-size: 16px;
-    }
-    
-    .service-title {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 8px;
-        color: var(--text-primary);
-    }
-    
-    .service-desc {
-        font-size: 14px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    
-    .service-time, .service-price {
-        font-size: 14px;
-    }
-    
-    .service-price {
-        color: var(--primary-color);
-    }
-    
-    /* Banner */
-    .store-banner {
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        border: 1.5px solid rgba(255, 255, 255, 0.2);
-        position: relative;
-    }
-    
-    .store-banner::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(45deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%);
-        z-index: 1;
-    }
-    
-    .store-banner .banner-content {
-        position: relative;
-        z-index: 2;
-        background-size: cover;
-        background-position: center;
-    }
-    
-    .banner-delete-form .btn-danger {
-        opacity: 0.8;
-        transition: all 0.3s;
-    }
-    
-    .banner-delete-form .btn-danger:hover {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    
-    .banner-title {
-        font-size: 36px;
-        font-weight: 800;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        letter-spacing: -0.5px;
-    }
-    
-    .banner-text {
-        font-size: 18px;
-        opacity: 0.95;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    
-    .banner-btn {
-        padding: 12px 24px;
-        font-weight: 600;
-        border-radius: 30px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s;
-        border: 2px solid transparent;
-    }
-    
-    .banner-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    /* Modal Styles */
-    .modal-content {
-        border: none;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        overflow: hidden;
-    }
-    
-    .modal-header {
-        border-bottom: 1.5px solid var(--border-color);
-        padding: 20px 24px;
-    }
-    
-    .modal-body {
-        padding: 24px;
-    }
-    
-    .modal-footer {
-        border-top: 1.5px solid var(--border-color);
-        padding: 16px 24px;
-    }
-    
-    .service-thumb {
-        width: 80px;
-        height: 60px;
-        object-fit: cover;
-        cursor: pointer;
-        transition: all 0.3s;
-        border-radius: 8px;
-        margin: 0 4px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    }
-    
-    .service-thumb.active {
-        border: 2px solid var(--primary-color);
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(26, 115, 232, 0.25);
-    }
-    
-    .service-thumb:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-    }
-    
-    .service-detail-tabs .nav-link {
-        color: var(--text-secondary);
-        padding: 12px 20px;
-        border-radius: 8px 8px 0 0;
-        font-weight: 500;
-        transition: all 0.3s;
-        position: relative;
-        border: 1px solid transparent;
-        margin-right: 4px;
-    }
-    
-    .service-detail-tabs .nav-link:hover {
-        color: var(--primary-color);
-        background-color: rgba(26, 115, 232, 0.05);
-    }
-    
-    .service-detail-tabs .nav-link.active {
-        color: var(--primary-color);
-        font-weight: 600;
-        background-color: #fff;
-        border: 1px solid var(--border-color);
-        border-bottom-color: #fff;
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
-    }
-    
-    .service-detail-tabs .nav-link.active::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: var(--primary-gradient, linear-gradient(90deg, var(--primary-color), var(--primary-light)));
-        border-radius: 3px 3px 0 0;
-    }
-    
-    .service-detail-tabs .tab-content {
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        border-radius: 0 0 8px 8px;
-    }
-    
-    /* Pagination */
-    .pagination {
-        margin-top: 30px;
-        gap: 5px;
-    }
-    
-    .pagination .page-link {
-        color: var(--text-secondary);
-        border: 1.5px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 16px;
-        font-weight: 500;
-        transition: all 0.3s;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-    }
-    
-    .pagination .page-item.active .page-link {
-        background: var(--primary-gradient, linear-gradient(90deg, var(--primary-color), var(--primary-light)));
-        border-color: var(--primary-color);
-        color: white;
-        box-shadow: 0 4px 8px rgba(26, 115, 232, 0.25);
-    }
-    
-    .pagination .page-link:hover {
-        background-color: var(--background-light);
-        color: var(--primary-color);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-    }
-    
-    .pagination .page-item:first-child .page-link,
-    .pagination .page-item:last-child .page-link {
-        padding: 10px 14px;
-    }
-</style>
+
 @endsection
 
 @section('scripts')

@@ -3,55 +3,6 @@
 @section('title', 'Konsultasi AI')
 
 @section('content')
-<div class="ai-chat-container">
-    <div class="chat-sidebar">
-        <div class="sidebar-header">
-            <h3>Konsultasi AI</h3>
-            <button class="new-chat-btn"><i class="fas fa-plus"></i> Chat Baru</button>
-        </div>
-        <div class="chat-history">
-            <div class="history-title">Riwayat Chat</div>
-            <ul class="chat-list">
-                <!-- Riwayat chat akan ditampilkan di sini melalui JavaScript -->
-            </ul>
-        </div>
-        <div class="sidebar-footer">
-            <a href="#" class="settings-link"><i class="fas fa-cog"></i> Pengaturan</a>
-            <a href="#" class="help-link"><i class="fas fa-question-circle"></i> Bantuan</a>
-        </div>
-    </div>
-    
-    <div class="chat-main">
-        <div class="chat-header">
-            <h2>Asisten Teknis</h2>
-
-        </div>
-        
-        <div class="chat-messages" id="chat-messages">
-            <div class="message system-message">
-                <div class="message-content">
-                    <p>Halo! Saya adalah Habib Service Center. Saya dapat membantu Anda dengan pertanyaan berbagai layanan service. Apa yang bisa saya bantu hari ini?</p>
-                </div>
-            </div>
-            <!-- Pesan-pesan chat akan ditampilkan di sini -->
-        </div>
-        
-        <div class="chat-input-container">
-            <form id="chat-form">
-                <div class="input-wrapper">
-                    <textarea id="chat-input" placeholder="Ketik pesan Anda di sini..." rows="1"></textarea>
-                    <button type="submit" id="send-button">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-                <div class="input-footer">
-                    <p class="disclaimer">Asisten AI ini menggunakan Groq API. Jawaban mungkin tidak selalu akurat.</p>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <style>
 /* Gaya Dasar */
 .ai-chat-container {
@@ -413,6 +364,57 @@
     }
 }
 </style>
+
+<div class="ai-chat-container">
+    <div class="chat-sidebar">
+        <div class="sidebar-header">
+            <h3>Konsultasi AI</h3>
+            <button class="new-chat-btn"><i class="fas fa-plus"></i> Chat Baru</button>
+        </div>
+        <div class="chat-history">
+            <div class="history-title">Riwayat Chat</div>
+            <ul class="chat-list">
+                <!-- Riwayat chat akan ditampilkan di sini melalui JavaScript -->
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <a href="#" class="settings-link"><i class="fas fa-cog"></i> Pengaturan</a>
+            <a href="#" class="help-link"><i class="fas fa-question-circle"></i> Bantuan</a>
+        </div>
+    </div>
+    
+    <div class="chat-main">
+        <div class="chat-header">
+            <h2>Asisten Teknis</h2>
+
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <div class="message system-message">
+                <div class="message-content">
+                    <p>Halo! Saya adalah Habib Service Center. Saya dapat membantu Anda dengan pertanyaan berbagai layanan service. Apa yang bisa saya bantu hari ini?</p>
+                </div>
+            </div>
+            <!-- Pesan-pesan chat akan ditampilkan di sini -->
+        </div>
+        
+        <div class="chat-input-container">
+            <form id="chat-form">
+                <div class="input-wrapper">
+                    <textarea id="chat-input" placeholder="Ketik pesan Anda di sini..." rows="1"></textarea>
+                    <button type="submit" id="send-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <p class="disclaimer">Asisten AI ini menggunakan Groq API. Jawaban mungkin tidak selalu akurat.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

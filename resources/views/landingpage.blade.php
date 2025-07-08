@@ -9,206 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/landingpage-icons.css') }}">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Preloader
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            setTimeout(function() {
-                preloader.classList.add('hidden');
-                setTimeout(function() {
-                    preloader.style.display = 'none';
-                }, 500);
-            }, 1500); // Tampilkan preloader selama 1.5 detik
-        });
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const splineViewer = document.getElementById('splineViewer');
-            const fullscreenBtn = document.getElementById('fullscreenBtn');
-            const splineFrame = document.getElementById('splineFrame');
-            const splineInstructions = document.querySelector('.spline-instructions');
-            const navbar = document.querySelector('.navbar');
-            
-            let isFullscreen = false;
-            let instructionsTimeout;
-            
-            // Sembunyikan instruksi setelah beberapa detik
-            function hideInstructionsAfterDelay() {
-                clearTimeout(instructionsTimeout);
-                splineInstructions.style.opacity = '0.8';
-                instructionsTimeout = setTimeout(() => {
-                    splineInstructions.style.opacity = '0';
-                }, 5000); // Sembunyikan setelah 5 detik
-            }
-            
-            // Tampilkan instruksi saat mouse bergerak di atas viewer
-            splineViewer.addEventListener('mousemove', () => {
-                splineInstructions.style.opacity = '0.8';
-                hideInstructionsAfterDelay();
-            });
-            
-            // Tampilkan instruksi saat sentuhan pada perangkat mobile
-            splineViewer.addEventListener('touchstart', () => {
-                splineInstructions.style.opacity = '0.8';
-                hideInstructionsAfterDelay();
-            });
-            
-            // Inisialisasi dengan menampilkan instruksi
-            hideInstructionsAfterDelay();
-            
-            // Efek scroll untuk navbar dan parallax
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-                
-                // Efek parallax pada hero section
-                const scrollPosition = window.scrollY;
-                const heroContent = document.querySelector('.hero-content');
-                const scrollDown = document.querySelector('.scroll-down');
-                
-                if (heroContent && scrollPosition < window.innerHeight) {
-                    heroContent.style.transform = `translateY(${scrollPosition * 0.3}px)`;
-                    heroContent.style.opacity = 1 - (scrollPosition / 700);
-                }
-                
-                if (scrollDown && scrollPosition < window.innerHeight) {
-                    scrollDown.style.opacity = 1 - (scrollPosition / 300);
-                }
-                
-                // Scroll animations
-                const animatedElements = document.querySelectorAll('.section-title, .section-description, .cta-title, .cta-description, .cta-button');
-                
-                animatedElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementVisible = 150;
-                    
-                    if (elementTop < window.innerHeight - elementVisible) {
-                        element.classList.add('visible');
-                    }
-                });
-            });
-            
-            fullscreenBtn.addEventListener('click', function() {
-                if (!isFullscreen) {
-                    // Masuk mode fullscreen
-                    splineViewer.classList.add('fullscreen');
-                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
-                    fullscreenBtn.title = 'Keluar dari layar penuh';
-                    
-                    // Coba gunakan Fullscreen API jika didukung browser
-                    if (splineViewer.requestFullscreen) {
-                        splineViewer.requestFullscreen();
-                    } else if (splineViewer.webkitRequestFullscreen) { /* Safari */
-                        splineViewer.webkitRequestFullscreen();
-                    } else if (splineViewer.msRequestFullscreen) { /* IE11 */
-                        splineViewer.msRequestFullscreen();
-                    }
-                    
-                    // Tambahkan event listener untuk keluar dari fullscreen
-                    document.addEventListener('fullscreenchange', exitHandler);
-                    document.addEventListener('webkitfullscreenchange', exitHandler);
-                    document.addEventListener('mozfullscreenchange', exitHandler);
-                    document.addEventListener('MSFullscreenChange', exitHandler);
-                    
-                    // Tampilkan instruksi saat masuk mode fullscreen
-                    splineInstructions.style.opacity = '0.8';
-                    hideInstructionsAfterDelay();
-                } else {
-                    // Keluar dari mode fullscreen
-                    exitFullscreen();
-                }
-                
-                isFullscreen = !isFullscreen;
-            });
-            
-            function exitHandler() {
-                if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
-                    exitFullscreen();
-                    isFullscreen = false;
-                }
-            }
-            
-            function exitFullscreen() {
-                splineViewer.classList.remove('fullscreen');
-                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-                fullscreenBtn.title = 'Tampilkan layar penuh';
-                
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) { /* Safari */
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { /* IE11 */
-                    document.msExitFullscreen();
-                }
-            }
-            
-            // Tambahkan event listener untuk tombol ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && isFullscreen) {
-                    exitFullscreen();
-                    isFullscreen = false;
-                }
-            });
-            
-            // Tambahkan kelas active pada link navbar saat di-scroll
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            window.addEventListener('scroll', function() {
-                let current = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    
-                    if (window.scrollY >= (sectionTop - 200)) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-            
-            // Smooth scroll untuk navigasi
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Scroll down button
-            const scrollDownBtn = document.getElementById('scrollDown');
-            if (scrollDownBtn) {
-                scrollDownBtn.addEventListener('click', function() {
-                    const featuresSection = document.getElementById('features');
-                    if (featuresSection) {
-                        window.scrollTo({
-                            top: featuresSection.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            }
-        });
-    </script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
         
@@ -981,7 +782,7 @@
                         <div class="team-img-container">
                             <img src="{{ ('images/arek_arek/rendi.jpg') }}" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Rendi Bagus A</h3>
+                        <h3 class="team-name">Rendi Bagus</h3>
                         <p class="team-position">Teknik informatika</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -997,7 +798,7 @@
                         <div class="team-img-container">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Ahmad Hamdan H</h3>
+                        <h3 class="team-name">Hamdan H</h3>
                         <p class="team-position">Teknik Informatika</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -1046,7 +847,7 @@
                             <img src="{{ secure_asset('images/arek_arek/zahroh.jpg') }}" alt="Team Member" class="team-img">
                         </div>
                         <h3 class="team-name">Laila Zahro</h3>
-                        <p class="team-position">CX Lead</p>
+                        <p class="team-position">Teknik Informatika</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -1124,5 +925,207 @@
             </div>
         </div>
     </footer>
+
+<script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            setTimeout(function() {
+                preloader.classList.add('hidden');
+                setTimeout(function() {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 1500); // Tampilkan preloader selama 1.5 detik
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const splineViewer = document.getElementById('splineViewer');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const splineFrame = document.getElementById('splineFrame');
+            const splineInstructions = document.querySelector('.spline-instructions');
+            const navbar = document.querySelector('.navbar');
+            
+            let isFullscreen = false;
+            let instructionsTimeout;
+            
+            // Sembunyikan instruksi setelah beberapa detik
+            function hideInstructionsAfterDelay() {
+                clearTimeout(instructionsTimeout);
+                splineInstructions.style.opacity = '0.8';
+                instructionsTimeout = setTimeout(() => {
+                    splineInstructions.style.opacity = '0';
+                }, 5000); // Sembunyikan setelah 5 detik
+            }
+            
+            // Tampilkan instruksi saat mouse bergerak di atas viewer
+            splineViewer.addEventListener('mousemove', () => {
+                splineInstructions.style.opacity = '0.8';
+                hideInstructionsAfterDelay();
+            });
+            
+            // Tampilkan instruksi saat sentuhan pada perangkat mobile
+            splineViewer.addEventListener('touchstart', () => {
+                splineInstructions.style.opacity = '0.8';
+                hideInstructionsAfterDelay();
+            });
+            
+            // Inisialisasi dengan menampilkan instruksi
+            hideInstructionsAfterDelay();
+            
+            // Efek scroll untuk navbar dan parallax
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // Efek parallax pada hero section
+                const scrollPosition = window.scrollY;
+                const heroContent = document.querySelector('.hero-content');
+                const scrollDown = document.querySelector('.scroll-down');
+                
+                if (heroContent && scrollPosition < window.innerHeight) {
+                    heroContent.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+                    heroContent.style.opacity = 1 - (scrollPosition / 700);
+                }
+                
+                if (scrollDown && scrollPosition < window.innerHeight) {
+                    scrollDown.style.opacity = 1 - (scrollPosition / 300);
+                }
+                
+                // Scroll animations
+                const animatedElements = document.querySelectorAll('.section-title, .section-description, .cta-title, .cta-description, .cta-button');
+                
+                animatedElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            });
+            
+            fullscreenBtn.addEventListener('click', function() {
+                if (!isFullscreen) {
+                    // Masuk mode fullscreen
+                    splineViewer.classList.add('fullscreen');
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                    fullscreenBtn.title = 'Keluar dari layar penuh';
+                    
+                    // Coba gunakan Fullscreen API jika didukung browser
+                    if (splineViewer.requestFullscreen) {
+                        splineViewer.requestFullscreen();
+                    } else if (splineViewer.webkitRequestFullscreen) { /* Safari */
+                        splineViewer.webkitRequestFullscreen();
+                    } else if (splineViewer.msRequestFullscreen) { /* IE11 */
+                        splineViewer.msRequestFullscreen();
+                    }
+                    
+                    // Tambahkan event listener untuk keluar dari fullscreen
+                    document.addEventListener('fullscreenchange', exitHandler);
+                    document.addEventListener('webkitfullscreenchange', exitHandler);
+                    document.addEventListener('mozfullscreenchange', exitHandler);
+                    document.addEventListener('MSFullscreenChange', exitHandler);
+                    
+                    // Tampilkan instruksi saat masuk mode fullscreen
+                    splineInstructions.style.opacity = '0.8';
+                    hideInstructionsAfterDelay();
+                } else {
+                    // Keluar dari mode fullscreen
+                    exitFullscreen();
+                }
+                
+                isFullscreen = !isFullscreen;
+            });
+            
+            function exitHandler() {
+                if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+                    exitFullscreen();
+                    isFullscreen = false;
+                }
+            }
+            
+            function exitFullscreen() {
+                splineViewer.classList.remove('fullscreen');
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                fullscreenBtn.title = 'Tampilkan layar penuh';
+                
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { /* IE11 */
+                    document.msExitFullscreen();
+                }
+            }
+            
+            // Tambahkan event listener untuk tombol ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && isFullscreen) {
+                    exitFullscreen();
+                    isFullscreen = false;
+                }
+            });
+            
+            // Tambahkan kelas active pada link navbar saat di-scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Smooth scroll untuk navigasi
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Scroll down button
+            const scrollDownBtn = document.getElementById('scrollDown');
+            if (scrollDownBtn) {
+                scrollDownBtn.addEventListener('click', function() {
+                    const featuresSection = document.getElementById('features');
+                    if (featuresSection) {
+                        window.scrollTo({
+                            top: featuresSection.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
