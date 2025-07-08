@@ -58,29 +58,33 @@
         }
 
         .typewriter {
-             overflow: hidden;
-             white-space: nowrap;
-             width: 0;
-             color: #39FF14;
-             text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
-             font-size: 1rem;
-             animation: 
-                typing 3s steps(40) 1s 1 normal both,
-                blink-caret 1s step-end infinite;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #00ff00;
+            font-size: 1rem;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+            animation: 
+                typing 5s steps(40, end) infinite,
+                blink-caret 0.7s step-end infinite;
         }
 
         @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; } /* supaya animasi bisa mengulang */
+        }
 
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00ff00; }
         }
     
     </style>
 
 </head>
-<div class="typewriter">
-   <h6>Labubu tahh ikiiiiiiii  ???? Swargo Panggonmu cakkkk !!!</h6>
-</div>
+<h6 class="typewriter">>>> Labubu tahhh ikiiiii ??? Swargo panggon mu cakk!!! <<<</h6>
 
 <body style="height: 100%; margin: 0; display: flex; flex-direction: column; overflow: hidden;">
 <div class="page-wrapper" style="height: 100%; display: flex; flex-direction: column;">
