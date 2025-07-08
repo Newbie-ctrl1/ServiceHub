@@ -64,7 +64,7 @@
             border-right: 2px solid #00ff00;
             font-size: 1rem;
             color: #00ff00;
-            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+            text-shadow: 0 0 5px #000000, 0 0 10px #000000;
             animation: 
                 typing 5s steps(40, end) infinite,
                 blink-caret 0.7s step-end infinite;
