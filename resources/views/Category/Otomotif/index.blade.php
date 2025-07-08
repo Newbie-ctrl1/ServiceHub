@@ -663,7 +663,7 @@
                                     <span>{{ $service->location }}</span>
                                 </div>
                             @endif
-                            <a href="#" class="btn-bid service-btn" onclick="confirmBooking({{ $service->user ? $service->user->id : 'null' }}, '{{ $service->title }}')">Booking Now</a>
+                            <a href="#" class="btn-bid service-btn" onclick="confirmBooking({{ $service->user ? $service->user->id : 'null' }}, '{{ $service->title }}')">Beli Sekarang</a>
                         </div>
                     </div>
                 </div>

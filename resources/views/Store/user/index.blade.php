@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-;    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="ServiceHub - Layanan jasa service terbaik dan terpercaya">
     <meta name="keywords" content="service, jasa, perbaikan, servicehub, layanan">
     <meta name="theme-color" content="#1a73e8">
@@ -20,9 +20,30 @@
     <link rel="stylesheet" href="{{ secure_asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ secure_asset('css/store-icons.css') }}">
 
-</head>
-<body>
+<style>
+    .typewriter {
+             overflow: hidden;
+             white-space: nowrap;
+             width: 0;
+             color: #39FF14;
+             text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
+             font-size: 1rem;
+             animation: 
+                typing 3s steps(40) 1s 1 normal both,
+                blink-caret 1s step-end infinite;
+        }
 
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+
+        }
+</style>
+</head>
+<div class="typewriter">
+   <h6>Labubu tahh ikiiiiiiii  ???? Swargo Panggonmu cakkkk !!!</h6>
+</div>
+<body>   
 <div class="page-wrapper">
     <div class="store-container">
         <div class="store-header">
@@ -63,6 +84,7 @@
         </div>
     </div>
 </footer>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

@@ -10,7 +10,6 @@
         <div class="notification-actions">
             <button class="notification-action-btn" id="refresh-btn" title="Refresh"><i class="fa fa-sync-alt"></i></button>
             <button class="notification-action-btn" id="mark-all-read" title="Mark all as read"><i class="fa fa-check-double"></i></button>
-            <button class="notification-action-btn" title="Settings"><i class="fa fa-cog"></i></button>
         </div>
     </div>
     

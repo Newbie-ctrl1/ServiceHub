@@ -36,9 +36,6 @@
                 <input type="file" id="imageUpload" accept="image/*" style="display: none;">
             </button>
             <input type="text" id="messageInput" placeholder="Ketik pesan..." autocomplete="off">
-            <button class="btn-icon" id="emojiButton" title="Emoji">
-                <i class="fas fa-smile"></i>
-            </button>
             <button class="send-button" id="sendButton">
                 <i class="fas fa-paper-plane"></i>
             </button>

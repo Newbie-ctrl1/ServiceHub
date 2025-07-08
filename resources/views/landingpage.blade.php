@@ -792,7 +792,7 @@
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <div class="team-card">
                         <div class="team-img-container">
-                            <img src="{{ secure_asset('images/arek_arek/hamdan.jpg')}}" alt="Team Member" class="team-img">
+                            <img src="{{ secure_asset('images/arek_arek/habib.jpg')}}" alt="Team Member" class="team-img">
                         </div>
                         <h3 class="team-name">Hamdan H</h3>
                         <p class="team-position">Teknik Informatika</p>                       

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-;    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="ServiceHub - Layanan jasa service terbaik dan terpercaya">
     <meta name="keywords" content="service, jasa, perbaikan, servicehub, layanan">
     <meta name="theme-color" content="#1a73e8">
@@ -56,16 +56,38 @@
                 margin-bottom: 5px;
             }
         }
+
+        .typewriter {
+             overflow: hidden;
+             white-space: nowrap;
+             width: 0;
+             color: #39FF14;
+             text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
+             font-size: 1rem;
+             animation: 
+                typing 3s steps(40) 1s 1 normal both,
+                blink-caret 1s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+
+        }
+    
     </style>
 
 </head>
-<body style="height: 100%; margin: 0; display: flex; flex-direction: column; overflow: hidden;">
+<div class="typewriter">
+   <h6>Labubu tahh ikiiiiiiii  ???? Swargo Panggonmu cakkkk !!!</h6>
+</div>
 
+<body style="height: 100%; margin: 0; display: flex; flex-direction: column; overflow: hidden;">
 <div class="page-wrapper" style="height: 100%; display: flex; flex-direction: column;">
     <div class="store-container" style="flex: 1; overflow: hidden; display: flex; flex-direction: column;">
         <div class="store-header">
             <div class="header-left">
-                <div class="servicehub-logo" onclick="window.location.href='{{ route("home") }}'">
+                <div class="servicehub-logo" onclick="window.location.href="{{ route("home") }}'">
                     <img src="{{ secure_asset('images/logo.png') }}" alt="ServiceHub Logo">
                 </div>
                 <video width="300" height="80" autoplay loop muted style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
