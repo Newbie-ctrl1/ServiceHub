@@ -979,10 +979,10 @@
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <div class="team-card">
                         <div class="team-img-container">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="team-img">
+                            <img src="{{ ('images/arek_arek/rendi.jpg') }}" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Rendi Bagus Anggara</h3>
-                        <p class="team-position">Founder & CEO</p>
+                        <h3 class="team-name">Rendi Bagus A</h3>
+                        <p class="team-position">Teknik informatika</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -997,8 +997,8 @@
                         <div class="team-img-container">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="team-img">
                         </div>
-                        <h3 class="team-name">Ahmad Hamdan Habibulloh</h3>
-                        <p class="team-position">CTO</p>
+                        <h3 class="team-name">Ahmad Hamdan H</h3>
+                        <p class="team-position">Teknik Informatika</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="social-link"><i class="fab fa-github"></i></a>
@@ -1011,10 +1011,10 @@
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <div class="team-card">
                         <div class="team-img-container">
-                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Team Member" class="team-img">
+                            <img src="{{ ('images/arek_arek/yusron.jpg') }}" alt="Team Member" class="team-img">
                         </div>
                         <h3 class="team-name">Yusron M</h3>
-                        <p class="team-position">Operations</p>
+                        <p class="team-position">Teknik Informatika</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -1030,7 +1030,7 @@
                             <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Team Member" class="team-img">
                         </div>
                         <h3 class="team-name">Arif Hidayat</h3>
-                        <p class="team-position">Marketing</p>
+                        <p class="team-position">Teknik Informatika</p>
                         <div class="team-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
@@ -1043,7 +1043,7 @@
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <div class="team-card">
                         <div class="team-img-container">
-                            <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Team Member" class="team-img">
+                            <img src="{{ secure_asset('images/arek_arek/zahroh.jpg') }}" alt="Team Member" class="team-img">
                         </div>
                         <h3 class="team-name">Laila Zahro</h3>
                         <p class="team-position">CX Lead</p>

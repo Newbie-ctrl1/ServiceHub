@@ -12,7 +12,7 @@
             <div class="col-lg-8">
                 <div class="featured-item">
                     <div class="featured-item-overlay"></div>
-                    <img src="{{ secure_asset('images/Konsultasi_gratis.jpg') }}" alt="featured-service" class="featured-img">
+                    <img src="{{ secure_asset('images/Konsultasi_gratis.png') }}" alt="featured-service" class="featured-img">
                     <div class="featured-content">
                         
                         <div class="featured-creator d-flex align-items-center mb-4">
