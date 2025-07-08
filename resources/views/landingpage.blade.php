@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/landingpage-icons.css') }}">
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
@@ -783,12 +784,7 @@
                             <img src="{{ ('images/arek_arek/rendi.jpg') }}" alt="Team Member" class="team-img">
                         </div>
                         <h3 class="team-name">Rendi Bagus</h3>
-                        <p class="team-position">Teknik informatika</p>
-                        <div class="team-social">
-                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        </div>
+                        <p class="team-position">Teknik informatika</p>                   
                     </div>
                 </div>
                 
@@ -796,15 +792,10 @@
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <div class="team-card">
                         <div class="team-img-container">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="team-img">
+                            <img src="{{ secure_asset('images/arek_arek/hamdan.jpg')}}" alt="Team Member" class="team-img">
                         </div>
                         <h3 class="team-name">Hamdan H</h3>
-                        <p class="team-position">Teknik Informatika</p>
-                        <div class="team-social">
-                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        </div>
+                        <p class="team-position">Teknik Informatika</p>                       
                     </div>
                 </div>
                 
@@ -816,11 +807,6 @@
                         </div>
                         <h3 class="team-name">Yusron M</h3>
                         <p class="team-position">Teknik Informatika</p>
-                        <div class="team-social">
-                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        </div>
                     </div>
                 </div>
                 
@@ -828,15 +814,10 @@
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <div class="team-card">
                         <div class="team-img-container">
-                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Team Member" class="team-img">
+                            <img src="{{ secure_asset('images/Avatar_KOnsultasi.png') }}" alt="Team Member" class="team-img">
                         </div>
                         <h3 class="team-name">Arif Hidayat</h3>
                         <p class="team-position">Teknik Informatika</p>
-                        <div class="team-social">
-                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
-                        </div>
                     </div>
                 </div>
                 
@@ -848,11 +829,6 @@
                         </div>
                         <h3 class="team-name">Laila Zahro</h3>
                         <p class="team-position">Teknik Informatika</p>
-                        <div class="team-social">
-                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        </div>
                     </div>
                 </div>
             </div>

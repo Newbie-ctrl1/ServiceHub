@@ -256,7 +256,7 @@
     <div class="cs-chat-header">
         <div class="cs-profile">
             <div class="cs-avatar">
-                <img src="{{ asset('images/cs-avatar.png') }}" alt="CS Avatar" onerror="this.src='{{ asset(\'images/logo.png\') }}'" style="width: 40px; height: 40px; object-fit: cover;">
+                <img src="{{ asset('images/cs-avatar.svg') }}" alt="CS Avatar" onerror="this.src='{{ asset(\'images/Avatar_KOnsultasi.png\') }}'" style="width: 40px; height: 40px; object-fit: cover;">
                 <span class="cs-status online"></span>
             </div>
             <div class="cs-info">

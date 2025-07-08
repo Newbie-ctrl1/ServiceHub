@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Services\ProfilePhotoService;
 
 class User extends Authenticatable
 {
@@ -52,6 +53,22 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    
+    /**
+     * Get the profile photo as a data URL for safe broadcasting
+     */
+    public function getProfilePhotoDataUrlAttribute()
+    {
+        return ProfilePhotoService::getProfilePhotoDataUrl($this->profile_photo, $this->id);
+    }
+    
+    /**
+     * Get safe profile photo for broadcasting (non-binary)
+     */
+    public function getSafeProfilePhotoAttribute()
+    {
+        return ProfilePhotoService::getSafeProfilePhoto($this->profile_photo);
     }
     
     /**

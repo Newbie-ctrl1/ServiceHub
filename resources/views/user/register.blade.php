@@ -38,14 +38,7 @@
                 <i class='bx bxs-lock-alt'></i>
             </div>
             <button type="submit" class="btn">Register</button>
-            <p class="auth-link">Already have an account? <a href="/login">Login here</a></p>
-            <p style="text-align: center;">or register with social platforms</p>
-            <div class="social-icons">
-                <a href="#"><i class='bx bxl-google'></i></a>
-                <a href="#"><i class='bx bxl-facebook'></i></a>
-                <a href="#"><i class='bx bxl-github'></i></a>
-                <a href="#"><i class='bx bxl-linkedin'></i></a>
-            </div>
+            <p class="auth-link">Apakah Anda Punya Sebuah Akun? <a href="/login">Login here</a></p>
         </form>
     </div>
 </body>

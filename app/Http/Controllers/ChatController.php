@@ -63,7 +63,7 @@ class ChatController extends Controller
                         'user' => [
                             'id' => (int) $message->sender->id,
                             'name' => $cleanUserName,
-                            'profile_photo' => $cleanProfilePhoto
+                            'profile_photo' => $message->sender->safe_profile_photo
                         ]
                     ];
                     

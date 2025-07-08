@@ -38,26 +38,55 @@ class ProcessChatMessage implements ShouldQueue
     public function handle(): void
     {
         try {
+            // Clean message data before saving
+            $cleanMessage = $this->cleanUtf8($this->messageData['message'] ?? null);
+            $cleanImageUrl = $this->cleanUtf8($this->messageData['image_url'] ?? null);
+            
             // Create message in database
             $message = Message::create([
                 'user_id' => $this->senderId,
                 'receiver_id' => $this->receiverId,
-                'message' => $this->messageData['message'] ?? null,
-                'image_url' => $this->messageData['image_url'] ?? null,
+                'message' => $cleanMessage,
+                'image_url' => $cleanImageUrl,
                 'is_read' => false
             ]);
 
             // Load sender relationship
             $message->load('sender');
-
-            // Broadcast the message
-            broadcast(new MessageSent($message, $message->sender));
-
-            Log::info('Chat message processed successfully', [
+            
+            // Validate that we can broadcast this data safely
+            $testData = [
                 'message_id' => $message->id,
-                'sender_id' => $this->senderId,
-                'receiver_id' => $this->receiverId
-            ]);
+                'message_text' => $message->message,
+                'sender_name' => $message->sender->name,
+                'sender_id' => $message->sender->id
+            ];
+            
+            $jsonTest = json_encode($testData);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                Log::warning('Message contains problematic data, broadcasting with cleaned data', [
+                    'message_id' => $message->id,
+                    'json_error' => json_last_error_msg()
+                ]);
+            }
+
+            // Broadcast the message with error handling
+            try {
+                broadcast(new MessageSent($message, $message->sender));
+                Log::info('Chat message broadcasted successfully', [
+                    'message_id' => $message->id,
+                    'sender_id' => $this->senderId,
+                    'receiver_id' => $this->receiverId
+                ]);
+            } catch (\Exception $broadcastError) {
+                Log::error('Failed to broadcast message, but message was saved', [
+                    'message_id' => $message->id,
+                    'broadcast_error' => $broadcastError->getMessage(),
+                    'sender_id' => $this->senderId,
+                    'receiver_id' => $this->receiverId
+                ]);
+                // Don't throw here - message was saved successfully
+            }
 
         } catch (\Exception $e) {
             Log::error('Failed to process chat message', [
@@ -69,6 +98,27 @@ class ProcessChatMessage implements ShouldQueue
 
             throw $e;
         }
+    }
+    
+    /**
+     * Clean UTF-8 data
+     */
+    private function cleanUtf8($data)
+    {
+        if ($data === null || $data === '') {
+            return $data;
+        }
+        
+        // Convert to UTF-8 and remove problematic characters
+        $cleaned = mb_convert_encoding($data, 'UTF-8', 'UTF-8');
+        $cleaned = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $cleaned);
+        
+        // Validate UTF-8 encoding
+        if (!mb_check_encoding($cleaned, 'UTF-8')) {
+            return '[Content contains invalid characters]';
+        }
+        
+        return $cleaned;
     }
 
     /**
